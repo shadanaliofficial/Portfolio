@@ -4,13 +4,11 @@
 :root {
   --base-100: #f9f4eb;
   --base-200: #efece5;
-  --base-300: #0f0f0f;
+  --base-300: #0a0a0a;
 
-  --accent-1: #70c1b3;
-  --accent-2: #247ba0;
-  --accent-3: #ffe066;
-  --accent-4: #f25f5c;
-  --accent-5: #50514f;
+  --accent-1: #d9e0f6;
+  --accent-2: #ffd2d2;
+  --accent-3: #fce1a6;
 }
 
 * {
@@ -68,12 +66,13 @@ p.lg {
 p.mono {
   text-transform: uppercase;
   font-family: "DM Mono";
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
 }
 
 .container {
   width: 100%;
+  height: 100%;
   padding: 2rem;
   max-width: 2000px;
   margin: 0 auto;

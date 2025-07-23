@@ -1,10 +1,321 @@
+/* home - hero */
 .hero {
   position: relative;
   width: 100vw;
   height: 100svh;
+  overflow: hidden;
+}
+
+.hero .hero-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero .hero-content .hero-header {
+  width: 100%;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.hero .hero-content .hero-header h1 {
+  font-size: 13.5vw;
+}
+
+.hero .hero-content .hero-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.hero .hero-content .hero-footer-copy {
+  width: 40%;
+}
+
+.hero .hero-content .hero-footer-tags {
+  display: flex;
+  gap: 2rem;
+}
+
+.hero .hero-cards {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.hero .hero-cards .card {
+  flex: 1;
+  position: relative;
+  aspect-ratio: 5/7;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero .hero-cards .card .card-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero .hero-cards .card p {
+  font-size: 0.8rem;
+}
+
+.hero .hero-cards .card#hero-card-1 {
+  background-color: var(--accent-1);
+  transform-origin: top right;
+  z-index: 2;
+}
+
+.hero .hero-cards .card#hero-card-2 {
+  background-color: var(--accent-2);
+  z-index: 1;
+}
+
+.hero .hero-cards .card#hero-card-3 {
+  background-color: var(--accent-3);
+  transform-origin: top left;
+  z-index: 0;
+}
+
+/* home - about */
+.home-about {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  background-color: var(--base-300);
+  overflow: hidden;
+}
+
+/* home - services */
+.home-services {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  padding: 8rem 2rem;
+  overflow: hidden;
+}
+
+.home-services-header {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  transform: translateY(500%);
+  will-change: transform;
+}
+
+.home-services .cards {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  z-index: -1;
+  background-color: var(--base-100);
+}
+
+.home-services .cards-container {
+  position: relative;
+  width: 75%;
+  height: 100%;
+  margin-top: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  gap: 4rem;
+}
+
+.home-services .cards-container .card {
+  flex: 1;
+  position: relative;
+  aspect-ratio: 5/7;
+  perspective: 1000px;
+}
+
+.home-services .cards-container .card .card-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  animation: floating 2s infinite ease-in-out;
+}
+
+.home-services .card .card-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-services .card p {
+  font-size: 0.8rem;
+}
+
+@keyframes floating {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, -55%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.home-services #card-1 .card-wrapper {
+  animation-delay: 0;
+}
+
+.home-services #card-2 .card-wrapper {
+  animation-delay: 0.25s;
+}
+
+.home-services #card-3 .card-wrapper {
+  animation-delay: 0.5s;
+}
+
+.home-services .flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.home-services .flip-card-front,
+.home-services .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  backface-visibility: hidden;
   overflow: hidden;
+}
+
+.home-services .flip-card-front {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-services #card-1 .flip-card-front {
+  background-color: var(--accent-1);
+}
+
+.home-services #card-2 .flip-card-front {
+  background-color: var(--accent-2);
+}
+
+.home-services #card-3 .flip-card-front {
+  background-color: var(--accent-3);
+}
+
+.home-services .flip-card-back {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  background-color: #fff;
+  transform: rotateY(180deg);
+}
+
+.home-services .card-copy {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.home-services .card-copy p {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  background-color: var(--base-200);
+  border-radius: 8px;
+}
+
+.home-services .cards #card-1 {
+  transform: translateX(100%) translateY(-100%) rotate(-5deg) scale(0.25);
+  z-index: 2;
+}
+
+.home-services .cards #card-2 {
+  transform: translateX(0%) translateY(-100%) rotate(0deg) scale(0.25);
+  z-index: 1;
+}
+
+.home-services .cards #card-3 {
+  transform: translateX(-100%) translateY(-100%) rotate(5deg) scale(0.25);
+  z-index: 0;
+}
+
+.home-services .cards .cards-container .card {
+  opacity: 0;
+}
+
+/* home - outro */
+.home-outro {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background-color: var(--base-300);
+}
+
+@media (max-width: 1400px) {
+  .hero .hero-content .hero-header h1 {
+    font-size: 13vw;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hero .hero-content .hero-header h1 {
+    font-size: 13vw;
+  }
+}
+
+@media (max-width: 1000px) {
+  .hero .hero-content .hero-header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+  }
+
+  .hero .hero-content .hero-header h1 {
+    font-size: 12vw;
+  }
+
+  .hero .hero-content {
+    justify-content: flex-end;
+  }
+
+  .hero .hero-content .hero-footer-copy {
+    display: none;
+  }
+
+  .hero .hero-content .hero-footer-tags {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
