@@ -1,0 +1,8 @@
+footer {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background-color: var(--base-300);
+  color: var(--base-100);
+}

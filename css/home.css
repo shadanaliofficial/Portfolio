@@ -372,12 +372,93 @@
   color: var(--base-100);
 }
 
-/* home - outro */
-.home-outro {
+/* outro */
+.outro {
   position: relative;
   width: 100vw;
   height: 100svh;
   overflow: hidden;
+}
+
+.outro .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.outro h3 {
+  width: 40%;
+  text-align: center;
+}
+
+.outro .outro-strips {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 125vw;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.outro .outro-strip {
+  position: relative;
+  transform: translateX(0%);
+  display: flex;
+  justify-content: space-around;
+  will-change: transform;
+}
+
+.outro .skill {
+  width: max-content;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.outro .skill p {
+  font-size: 0.8rem;
+}
+
+.outro .os-1 {
+  margin-top: 10rem;
+}
+
+.outro .os-2 {
+  margin-top: -2rem;
+}
+
+.outro .os-3 {
+  margin-top: 16rem;
+}
+
+.outro .os-4 {
+  margin-top: -2rem;
+}
+
+.outro .os-5 {
+  margin-top: 1rem;
+}
+
+.outro .os-6 {
+  margin-top: 2rem;
+}
+
+.outro .skill.skill-var-1 {
+  background-color: var(--accent-1);
+  color: var(--base-300);
+}
+
+.outro .skill.skill-var-2 {
+  background-color: var(--accent-2);
+  color: var(--base-300);
+}
+
+.outro .skill.skill-var-3 {
+  background-color: var(--accent-3);
+  color: var(--base-300);
 }
 
 @media (max-width: 1400px) {
