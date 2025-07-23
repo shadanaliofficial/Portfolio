@@ -17,6 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.set(outroSplit.words, { opacity: 0 });
   }
 
+  const outroStrips = document.querySelectorAll(".outro-strip");
+
+  const stripSpeeds = [0.3, 0.4, 0.25, 0.35, 0.2, 0.25];
+
   ScrollTrigger.create({
     trigger: ".outro",
     start: "top top",
@@ -47,6 +51,27 @@ document.addEventListener("DOMContentLoaded", () => {
           gsap.set(outroSplit.words, { opacity: 1 });
         }
       }
+    },
+  });
+
+  ScrollTrigger.create({
+    trigger: ".outro",
+    start: "top bottom",
+    end: `+=${window.innerHeight * 6}px`,
+    scrub: 1,
+    onUpdate: (self) => {
+      const progress = self.progress;
+
+      outroStrips.forEach((strip, index) => {
+        if (stripSpeeds[index] !== undefined) {
+          const speed = stripSpeeds[index];
+          const movement = progress * 100 * speed;
+
+          gsap.set(strip, {
+            x: `${movement}%`,
+          });
+        }
+      });
     },
   });
 });
