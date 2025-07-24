@@ -1,0 +1,143 @@
+/* about - hero */
+.about-hero {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.about-hero .about-hero-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.about-hero .about-header {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  text-align: center;
+  color: var(--base-100);
+}
+
+/* about - intro copy */
+.anime-text-container {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.anime-text-container .copy-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.anime-text-container .anime-text {
+  width: 50%;
+}
+
+.anime-text-container .anime-text p {
+  color: var(--base-300);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.anime-text-container .anime-text .word {
+  display: inline-block;
+  position: relative;
+  margin-right: 0.2rem;
+  margin-bottom: 0.2rem;
+  padding: 0.1rem 0.2rem;
+  border-radius: 8px;
+  will-change: background-color, opacity;
+}
+
+.anime-text-container .anime-text .word.keyword-wrapper {
+  margin: 0 0.4rem 0.2rem 0.2rem;
+}
+
+.anime-text-container .anime-text .word span {
+  position: relative;
+}
+
+.anime-text-container .anime-text .word span.keyword {
+  border-radius: 2rem;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 0.1rem 0;
+  color: var(--base-300);
+}
+
+.anime-text-container .anime-text .word span.keyword::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% + 1rem);
+  height: calc(100% + 0.4rem);
+  background-color: var(--base-300);
+  border-radius: 8px;
+  z-index: -1;
+}
+
+.anime-text-container .anime-text .word span.keyword.corner::before,
+.anime-text-container .anime-text .word span.keyword.learnings::before,
+.anime-text-container .anime-text .word span.keyword.deploy::before {
+  background-color: var(--accent-1);
+}
+
+.anime-text-container .anime-text .word span.keyword.scroll::before,
+.anime-text-container .anime-text .word span.keyword.rhythm::before,
+.anime-text-container .anime-text .word span.keyword.caffeine::before {
+  background-color: var(--accent-2);
+}
+
+.anime-text-container .anime-text .word span.keyword.archive::before,
+.anime-text-container .anime-text .word span.keyword.detail::before,
+.anime-text-container .anime-text .word span.keyword.messing::before {
+  background-color: var(--accent-3);
+}
+
+.anime-text-container .anime-text .word,
+.anime-text-container .anime-text .word span {
+  opacity: 0;
+}
+
+@media (max-width: 1000px) {
+  .anime-text-container .copy-container h1 {
+    width: 90%;
+    font-size: 2rem;
+  }
+
+  .anime-text-container .anime-text {
+    width: 90%;
+  }
+
+  .anime-text-container .anime-text p {
+    font-size: 1.25rem;
+  }
+
+  .anime-text-container .anime-text .word {
+    margin-right: 0.1rem;
+    margin-bottom: 0.15rem;
+    padding: 0.1rem 0.2rem;
+  }
+
+  .anime-text-container .anime-text .word.keyword-wrapper {
+    margin: 0 0.2rem 0.1rem 0.1rem;
+  }
+}
