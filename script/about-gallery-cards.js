@@ -13,7 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   ScrollTrigger.create({
-    trigger: ".sticky-cards",
+    trigger: ".about-skills",
+    start: "top top",
+    end: `+=${window.innerHeight * 3}px`,
+    pin: true,
+    pinSpacing: true,
+    scrub: 1,
+  });
+
+  ScrollTrigger.create({
+    trigger: ".about-sticky-cards",
     start: "top top",
     end: `+=${window.innerHeight * 8}px`,
     pin: true,
