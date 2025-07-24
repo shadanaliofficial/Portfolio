@@ -5,7 +5,7 @@ import { SplitText } from "gsap/SplitText";
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
-  // ===== ANIME TEXT ANIMATION =====
+  // animated text
   const animeTextParagraphs = document.querySelectorAll(".anime-text p");
   const wordHighlightBgColor = "191, 188, 180";
 
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ===== SKILLS PHYSICS PLAYGROUND =====
+  // skills playground
   const animateOnScroll = true;
 
   const config = {
@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePositions();
   }
 
-  // Physics initialization
+  // physics initialization
   if (animateOnScroll) {
     document.querySelectorAll("section").forEach((section) => {
       if (section.querySelector(".object-container")) {
@@ -347,7 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===== GALLERY CARDS ANIMATION =====
+  // gallery animation
   const galleryCards = gsap.utils.toArray(".gallery-card");
   const rotations = [-12, 10, -5, 5, -5, -2];
 
@@ -358,7 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Skills section pinning
+  // skills section pinning
   ScrollTrigger.create({
     trigger: ".about-skills",
     start: "top top",
@@ -368,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scrub: 1,
   });
 
-  // Gallery cards animation
+  // gallery cards animation
   ScrollTrigger.create({
     trigger: ".about-sticky-cards",
     start: "top top",
@@ -416,7 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // ===== OUTRO ANIMATION =====
+  // outro animation
   const outroHeader = document.querySelector(".outro h3");
   let outroSplit = null;
 
@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const outroStrips = document.querySelectorAll(".outro-strip");
   const stripSpeeds = [0.3, 0.4, 0.25, 0.35, 0.2, 0.25];
 
-  // Outro text reveal animation
+  // outro text reveal animation
   ScrollTrigger.create({
     trigger: ".outro",
     start: "top top",
@@ -466,7 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // Outro strips animation
+  // outro strips animation
   ScrollTrigger.create({
     trigger: ".outro",
     start: "top bottom",
