@@ -117,6 +117,76 @@
   opacity: 0;
 }
 
+/* about - skills */
+.about-skills {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background-color: var(--base-300);
+  color: var(--base-100);
+}
+
+/* about - gallery */
+.sticky-cards {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background-color: var(--base-100);
+  color: var(--base-300);
+}
+
+.sticky-cards .sticky-cards-header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  text-align: center;
+}
+
+.sticky-cards .gallery-card {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  width: 25%;
+  height: 50%;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  border-radius: 12px;
+  background-color: var(--base-300);
+  color: var(--base-100);
+}
+
+.sticky-cards .gallery-card-img {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.sticky-cards .gallery-card-content {
+  flex: 0 0 12px;
+  display: flex;
+  align-items: center;
+}
+
+.sticky-cards .gallery-card-content p.mono {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 1000px) {
+  .sticky-cards .gallery-card {
+    width: 75%;
+  }
+}
+
 @media (max-width: 1000px) {
   .anime-text-container .copy-container h1 {
     width: 90%;
