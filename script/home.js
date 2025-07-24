@@ -1,9 +1,11 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 
 document.addEventListener("DOMContentLoaded", () => {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, SplitText);
 
+  // hero cards animation
   const smoothStep = (p) => p * p * (3 - 2 * p);
 
   if (window.innerWidth > 1000) {
@@ -200,4 +202,177 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     });
   }
+
+  // spotlight animation
+  const spotlightImages = document.querySelector(".home-spotlight-images");
+  const containerHeight = spotlightImages.offsetHeight;
+  const viewportHeight = window.innerHeight;
+
+  const initialOffset = containerHeight * 0.05;
+  const totalMovement = containerHeight + initialOffset + viewportHeight;
+
+  const spotlightHeader = document.querySelector(".spotlight-mask-header h3");
+  let headerSplit = null;
+
+  if (spotlightHeader) {
+    headerSplit = SplitText.create(spotlightHeader, {
+      type: "words",
+      wordsClass: "spotlight-word",
+    });
+
+    gsap.set(headerSplit.words, { opacity: 0 });
+  }
+
+  ScrollTrigger.create({
+    trigger: ".home-spotlight",
+    start: "top top",
+    end: `+=${window.innerHeight * 7}px`,
+    pin: true,
+    pinSpacing: true,
+    scrub: 1,
+    onUpdate: (self) => {
+      const progress = self.progress;
+
+      if (progress <= 0.5) {
+        const animationProgress = progress / 0.5;
+
+        const startY = 5;
+        const endY = -(totalMovement / containerHeight) * 100;
+
+        const currentY = startY + (endY - startY) * animationProgress;
+
+        gsap.set(spotlightImages, {
+          y: `${currentY}%`,
+        });
+      }
+
+      const maskContainer = document.querySelector(
+        ".spotlight-mask-image-container"
+      );
+      const maskImage = document.querySelector(".spotlight-mask-image");
+
+      if (maskContainer && maskImage) {
+        if (progress >= 0.25 && progress <= 0.75) {
+          const maskProgress = (progress - 0.25) / 0.5;
+          const maskSize = `${maskProgress * 400}%`;
+
+          const imageScale = 1.25 - maskProgress * 0.25;
+
+          maskContainer.style.setProperty("-webkit-mask-size", maskSize);
+          maskContainer.style.setProperty("mask-size", maskSize);
+
+          gsap.set(maskImage, {
+            scale: imageScale,
+          });
+        } else if (progress < 0.25) {
+          maskContainer.style.setProperty("-webkit-mask-size", "0%");
+          maskContainer.style.setProperty("mask-size", "0%");
+
+          gsap.set(maskImage, {
+            scale: 1.25,
+          });
+        } else if (progress > 0.75) {
+          maskContainer.style.setProperty("-webkit-mask-size", "400%");
+          maskContainer.style.setProperty("mask-size", "400%");
+
+          gsap.set(maskImage, {
+            scale: 1,
+          });
+        }
+      }
+
+      if (headerSplit && headerSplit.words.length > 0) {
+        if (progress >= 0.75 && progress <= 0.95) {
+          const textProgress = (progress - 0.75) / 0.2;
+          const totalWords = headerSplit.words.length;
+
+          headerSplit.words.forEach((word, index) => {
+            const wordRevealProgress = index / totalWords;
+
+            if (textProgress >= wordRevealProgress) {
+              gsap.set(word, { opacity: 1 });
+            } else {
+              gsap.set(word, { opacity: 0 });
+            }
+          });
+        } else if (progress < 0.75) {
+          gsap.set(headerSplit.words, { opacity: 0 });
+        } else if (progress > 0.95) {
+          gsap.set(headerSplit.words, { opacity: 1 });
+        }
+      }
+    },
+  });
+
+  // outro animation
+  const outroHeader = document.querySelector(".outro h3");
+  let outroSplit = null;
+
+  if (outroHeader) {
+    outroSplit = SplitText.create(outroHeader, {
+      type: "words",
+      wordsClass: "outro-word",
+    });
+
+    gsap.set(outroSplit.words, { opacity: 0 });
+  }
+
+  const outroStrips = document.querySelectorAll(".outro-strip");
+  const stripSpeeds = [0.3, 0.4, 0.25, 0.35, 0.2, 0.25];
+
+  // outro text reveal animation
+  ScrollTrigger.create({
+    trigger: ".outro",
+    start: "top top",
+    end: `+=${window.innerHeight * 3}px`,
+    pin: true,
+    pinSpacing: true,
+    scrub: 1,
+    onUpdate: (self) => {
+      const progress = self.progress;
+
+      if (outroSplit && outroSplit.words.length > 0) {
+        if (progress >= 0.25 && progress <= 0.75) {
+          const textProgress = (progress - 0.25) / 0.5;
+          const totalWords = outroSplit.words.length;
+
+          outroSplit.words.forEach((word, index) => {
+            const wordRevealProgress = index / totalWords;
+
+            if (textProgress >= wordRevealProgress) {
+              gsap.set(word, { opacity: 1 });
+            } else {
+              gsap.set(word, { opacity: 0 });
+            }
+          });
+        } else if (progress < 0.25) {
+          gsap.set(outroSplit.words, { opacity: 0 });
+        } else if (progress > 0.75) {
+          gsap.set(outroSplit.words, { opacity: 1 });
+        }
+      }
+    },
+  });
+
+  // outro animation
+  ScrollTrigger.create({
+    trigger: ".outro",
+    start: "top bottom",
+    end: `+=${window.innerHeight * 6}px`,
+    scrub: 1,
+    onUpdate: (self) => {
+      const progress = self.progress;
+
+      outroStrips.forEach((strip, index) => {
+        if (stripSpeeds[index] !== undefined) {
+          const speed = stripSpeeds[index];
+          const movement = progress * 100 * speed;
+
+          gsap.set(strip, {
+            x: `${movement}%`,
+          });
+        }
+      });
+    },
+  });
 });
