@@ -528,10 +528,6 @@
     font-size: 22.5vw;
   }
 
-  .hero .hero-cards {
-    width: 50%;
-  }
-
   .hero .hero-content .hero-footer-copy {
     display: none;
   }
@@ -558,6 +554,7 @@
   }
 
   .hero .hero-cards {
+    top: 65%;
     width: 75%;
   }
 }
