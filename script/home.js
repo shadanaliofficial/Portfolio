@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const y = gsap.utils.interpolate(
               "0%",
-              "350%",
+              "400%",
               smoothStep(cardProgress)
             );
             const scale = gsap.utils.interpolate(
