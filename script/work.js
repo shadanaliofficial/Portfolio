@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       scrollAllowed = true;
       lastScrollTime = Date.now();
-    }, 2000);
+    }, 1500);
   }
 
   function animateSlide(direction) {
@@ -219,10 +219,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const exitY = direction === "down" ? "-200vh" : "200vh";
     const entryY = direction === "down" ? "100vh" : "-100vh";
-    const entryClipPath =
-      direction === "down"
-        ? "polygon(20% 20%, 80% 20%, 80% 100%, 20% 100%)"
-        : "polygon(20% 0%, 80% 0%, 80% 80%, 20% 80%)";
 
     gsap.to(currentSlideElement, {
       scale: 0.25,
@@ -239,10 +235,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       const newSlide = createSlide(currentSlide);
+      const newSlideImg = newSlide.querySelector(".slide-img img");
 
       gsap.set(newSlide, {
         y: entryY,
-        clipPath: entryClipPath,
+        force3D: true,
+      });
+
+      gsap.set(newSlideImg, {
+        scale: 2,
         force3D: true,
       });
 
@@ -260,11 +261,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       gsap.to(newSlide, {
         y: 0,
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
         duration: 1.5,
         ease: "power4.out",
         force3D: true,
         onStart: () => {
+          gsap.to(newSlideImg, {
+            scale: 1,
+            duration: 1.5,
+            ease: "power4.out",
+            force3D: true,
+          });
+
           const tl = gsap.timeline();
 
           const headerWords = newSlide.querySelectorAll(".slide-title .word");

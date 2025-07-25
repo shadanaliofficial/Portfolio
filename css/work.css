@@ -27,6 +27,10 @@
   border: 2px dashed var(--base-300);
 }
 
+.slide-img img {
+  will-change: transform;
+}
+
 .slide-img::after {
   content: "";
   position: absolute;
