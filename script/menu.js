@@ -2,6 +2,7 @@ import gsap from "gsap";
 
 const menu = document.querySelector(".menu");
 const menuToggle = document.querySelector(".menu-toggle");
+const menuHeader = document.querySelector(".menu-header");
 const menuOverlay = document.querySelector(".menu-overlay");
 const menuItems = document.querySelectorAll(".menu-nav li");
 const menuFooter = document.querySelector(".menu-footer");
@@ -11,6 +12,7 @@ const hamburgerMenu = document.querySelector(".menu-hamburger-icon");
 let isOpen = false;
 let lastScrollY = window.scrollY;
 let isMenuVisible = true;
+let isAnimating = false;
 
 function initMenu() {
   gsap.set(menuOverlay, {
@@ -30,6 +32,8 @@ function initMenu() {
 }
 
 function toggleMenu() {
+  if (isAnimating) return;
+
   if (isOpen) {
     closeMenu();
   } else {
@@ -39,6 +43,7 @@ function toggleMenu() {
 
 function openMenu() {
   isOpen = true;
+  isAnimating = true;
   if (hamburgerMenu) {
     hamburgerMenu.classList.add("open");
   }
@@ -46,7 +51,11 @@ function openMenu() {
     menuLogo.classList.add("rotated");
   }
 
-  const tl = gsap.timeline();
+  const tl = gsap.timeline({
+    onComplete: () => {
+      isAnimating = false;
+    },
+  });
 
   tl.to(menuOverlay, {
     duration: 0.5,
@@ -80,6 +89,7 @@ function openMenu() {
 
 function closeMenu() {
   isOpen = false;
+  isAnimating = true;
   if (hamburgerMenu) {
     hamburgerMenu.classList.remove("open");
   }
@@ -87,7 +97,11 @@ function closeMenu() {
     menuLogo.classList.remove("rotated");
   }
 
-  const tl = gsap.timeline();
+  const tl = gsap.timeline({
+    onComplete: () => {
+      isAnimating = false;
+    },
+  });
 
   tl.to([menuItems, menuFooter], {
     duration: 0.4,
@@ -112,7 +126,6 @@ function handleScroll() {
   const currentScrollY = window.scrollY;
 
   if (currentScrollY > lastScrollY && currentScrollY > 100) {
-    // Scrolling down
     if (isOpen) {
       closeMenu();
     }
@@ -121,7 +134,6 @@ function handleScroll() {
       isMenuVisible = false;
     }
   } else if (currentScrollY < lastScrollY) {
-    // Scrolling up
     if (!isMenuVisible) {
       menu.classList.remove("hidden");
       isMenuVisible = true;
@@ -135,19 +147,18 @@ function updateTime() {
   const now = new Date();
   const timeString = now.toLocaleTimeString("en-US", {
     hour12: false,
-    timeZone: "America/New_York",
   });
   const timeElement = document.querySelector(".menu-time");
   if (timeElement) {
-    timeElement.textContent = `${timeString} NY`;
+    timeElement.textContent = `${timeString} LOCAL`;
   }
 }
 
 function init() {
   initMenu();
 
-  if (menuToggle) {
-    menuToggle.addEventListener("click", toggleMenu);
+  if (menuHeader) {
+    menuHeader.addEventListener("click", toggleMenu);
   }
 
   menuItems.forEach((item) => {
@@ -161,7 +172,6 @@ function init() {
     }
   });
 
-  // Add scroll listener
   window.addEventListener("scroll", handleScroll);
 
   updateTime();

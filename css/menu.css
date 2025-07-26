@@ -95,6 +95,7 @@
   transform-origin: top;
   transform: scaleY(0);
   overflow: hidden;
+  will-change: transform;
 }
 
 .menu-nav {
