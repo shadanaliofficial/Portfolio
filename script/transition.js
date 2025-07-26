@@ -104,9 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
               `translate(${newTranslateX}, ${newTranslateY}) scale(${scale})`
             );
 
-            const fadeProgress = Math.min(0.5, progress * 2.5);
+            const fadeProgress = Math.min(0.3, progress * 2.5);
             gsap.set(".mask-bg-overlay", {
-              opacity: 0.5 - fadeProgress,
+              opacity: 0.3 - fadeProgress,
             });
           },
           onComplete: () => {
