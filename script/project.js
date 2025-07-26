@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
   initAnimations();
 
+  setTimeout(() => {
+    initSnapshotsScroll();
+  }, 100);
+});
+
+function initSnapshotsScroll() {
   const wrapper = document.querySelector(".project-snapshots-wrapper");
   const snapshotsSection = document.querySelector(".project-snapshots");
 
@@ -29,40 +35,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
   snapshotsSection.appendChild(progressBarContainer);
 
-  const wrapperWidth = wrapper.offsetWidth;
-  const viewportWidth = window.innerWidth;
+  ScrollTrigger.refresh();
 
-  const moveDistance = -(wrapperWidth - viewportWidth);
+  const calculateDimensions = () => {
+    const wrapperWidth = wrapper.offsetWidth;
+    const viewportWidth = window.innerWidth;
+    return -(wrapperWidth - viewportWidth);
+  };
 
-  const progressBarElement = progressBar;
+  let moveDistance = calculateDimensions();
+
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   ScrollTrigger.create({
     trigger: ".project-snapshots",
     start: "top top",
-    end: `+=${window.innerHeight * 5}px`,
+    end: () => `+=${window.innerHeight * 5}px`,
     pin: true,
     pinSpacing: true,
-    scrub: 1,
+    scrub: isSafari && isIOS ? 0.5 : 1,
+    invalidateOnRefresh: true,
+    onRefresh: () => {
+      moveDistance = calculateDimensions();
+    },
     onUpdate: (self) => {
       const progress = self.progress;
-
       const currentTranslateX = progress * moveDistance;
 
       gsap.set(wrapper, {
         x: currentTranslateX,
+        force3D: true,
+        transformOrigin: "left center",
       });
 
-      if (progressBarElement) {
-        gsap.set(progressBarElement, {
+      if (progressBar) {
+        gsap.set(progressBar, {
           width: `${progress * 100}%`,
         });
       }
     },
   });
 
+  let resizeTimeout;
   const handleResize = () => {
-    ScrollTrigger.refresh();
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      moveDistance = calculateDimensions();
+      ScrollTrigger.refresh();
+    }, 250);
   };
 
   window.addEventListener("resize", handleResize);
-});
+  window.addEventListener("orientationchange", () => {
+    setTimeout(handleResize, 500);
+  });
+
+  if (isIOS) {
+    const setViewportHeight = () => {
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${window.innerHeight * 0.01}px`
+      );
+    };
+
+    setViewportHeight();
+    window.addEventListener("resize", setViewportHeight);
+    window.addEventListener("orientationchange", () => {
+      setTimeout(setViewportHeight, 500);
+    });
+  }
+}
