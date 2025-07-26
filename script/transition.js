@@ -184,36 +184,38 @@ document.addEventListener("DOMContentLoaded", () => {
     return false;
   }
 
-  document.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const href = link.getAttribute("href");
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a");
 
-      console.log("Link clicked:", href);
-      console.log("Current path:", window.location.pathname);
+    if (!link) return;
 
-      if (
-        href &&
-        (href.startsWith("http") ||
-          href.startsWith("mailto:") ||
-          href.startsWith("tel:"))
-      ) {
-        console.log("External link - allowing default");
-        return;
-      }
+    const href = link.getAttribute("href");
 
-      if (isSamePage(href)) {
-        console.log("Same page detected - preventing navigation");
-        event.preventDefault();
-        closeMenuIfOpen();
-        return;
-      }
+    console.log("Link clicked:", href);
+    console.log("Current path:", window.location.pathname);
 
-      console.log("Different page - doing transition");
+    if (
+      href &&
+      (href.startsWith("http") ||
+        href.startsWith("mailto:") ||
+        href.startsWith("tel:"))
+    ) {
+      console.log("External link - allowing default");
+      return;
+    }
+
+    if (isSamePage(href)) {
+      console.log("Same page detected - preventing navigation");
       event.preventDefault();
+      closeMenuIfOpen();
+      return;
+    }
 
-      animateTransition().then(() => {
-        window.location.href = href;
-      });
+    console.log("Different page - doing transition");
+    event.preventDefault();
+
+    animateTransition().then(() => {
+      window.location.href = href;
     });
   });
 });
