@@ -89,9 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
       gsap.to(
         {},
         {
-          duration: 1,
+          duration: 2,
           delay: 0,
-          ease: "power4.inOut",
+          ease: "power2.inOut",
           onUpdate: function () {
             const progress = this.progress();
             const scale = initialScale + progress * 40;
@@ -104,9 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
               `translate(${newTranslateX}, ${newTranslateY}) scale(${scale})`
             );
 
-            const fadeProgress = Math.min(1, progress * 2);
+            const fadeProgress = Math.min(0.5, progress * 2.5);
             gsap.set(".mask-bg-overlay", {
-              opacity: 1 - fadeProgress,
+              opacity: 0.5 - fadeProgress,
             });
           },
           onComplete: () => {
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       gsap.to(".transition-overlay", {
         scaleY: 1,
-        duration: 1,
+        duration: 0.75,
         ease: "power4.out",
         onStart: () => {
           gsap.set(".transition-logo", {
@@ -138,13 +138,13 @@ document.addEventListener("DOMContentLoaded", () => {
           gsap.to(".transition-logo", {
             top: "50%",
             transform: "translate(-50%, -50%)",
-            duration: 1,
+            duration: 0.75,
             delay: 0.5,
             ease: "power4.out",
             onComplete: () => {
               setTimeout(() => {
                 resolve();
-              }, 200);
+              }, 50);
             },
           });
         },
