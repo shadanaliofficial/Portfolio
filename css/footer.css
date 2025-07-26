@@ -5,7 +5,7 @@ footer {
   overflow: hidden;
   background-color: var(--base-300);
   color: var(--base-100);
-  padding: 10rem 0 2rem 0;
+  padding: 8rem 0 4rem 0;
 }
 
 footer .container {
@@ -117,6 +117,10 @@ footer .footer-copy {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+footer a {
+  color: var(--base-100);
 }
 
 @media (max-width: 1000px) {

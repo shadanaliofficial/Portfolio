@@ -42,7 +42,7 @@
 }
 
 .anime-text-container .anime-text {
-  width: 50%;
+  width: 60%;
 }
 
 .anime-text-container .anime-text p {
@@ -146,10 +146,6 @@
   justify-content: space-between;
 }
 
-.about-skills .about-skills-col:nth-child(1) p.mono {
-  opacity: 0.25;
-}
-
 .about-skills .about-skills-col:nth-child(1) h3 {
   width: 75%;
 }
@@ -199,6 +195,12 @@
 
 .about-skills .object-container .os-3 {
   background-color: var(--accent-3);
+}
+
+.about-skills-copy-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 /* about - gallery */
@@ -272,7 +274,7 @@
   }
 
   .anime-text-container .anime-text p {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
   }
 
   .anime-text-container .anime-text .word {
@@ -283,5 +285,49 @@
 
   .anime-text-container .anime-text .word.keyword-wrapper {
     margin: 0 0.2rem 0.1rem 0.1rem;
+  }
+
+  .about-hero .about-header {
+    width: 90%;
+    top: 50%;
+    bottom: unset;
+    transform: translate(-50%, -50%);
+  }
+
+  .about-skills {
+    height: 100svh;
+  }
+
+  .about-skills .container {
+    flex-direction: column;
+  }
+
+  .about-skills .about-skills-col:nth-child(1) {
+    justify-content: flex-start;
+    gap: 4rem;
+  }
+
+  .about-skills .object-container .object {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    user-select: none;
+    pointer-events: auto;
+    z-index: 2;
+    border: 2px solid #101010;
+  }
+
+  .about-sticky-cards .gallery-card {
+    top: 50%;
+  }
+
+  .about-sticky-cards .gallery-card {
+    width: 50%;
+    height: 25svh;
+  }
+
+  .about-sticky-cards .sticky-cards-header {
+    width: 90%;
   }
 }
