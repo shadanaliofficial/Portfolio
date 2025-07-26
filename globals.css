@@ -83,7 +83,8 @@ p.mono {
   font-weight: 500;
 }
 
-p.mono span {
+p.mono span,
+a span {
   position: relative;
   top: -0.1rem;
 }
