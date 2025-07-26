@@ -87,7 +87,7 @@ footer .footer-email-row input {
 
 footer .footer-bottom {
   padding: 4rem 0 10rem 0;
-  border-top: 2px dashed var(--base-secondary-fade-200);
+  border-top: 1px dashed var(--base-secondary-fade);
 }
 
 footer .footer-bottom .footer-col:nth-child(2) {

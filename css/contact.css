@@ -25,8 +25,8 @@
   right: 2rem;
   transform: translateY(-50%);
   z-index: 0;
-  width: 35%;
-  aspect-ratio: 5/4;
+  width: 31%;
+  aspect-ratio: 5/3.5;
 }
 
 .home-spotlight-top-bar {

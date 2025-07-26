@@ -1,15 +1,11 @@
-@import url("https://fonts.cdnfonts.com/css/druk-trial");
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap");
 
 :root {
   --base-100: #f9f4eb;
   --base-200: #efece5;
   --base-300: #0a0a0a;
-
   --base-secondary-dark: #686560;
   --base-secondary-fade: rgba(249, 244, 235, 0.15);
-  --base-secondary-fade-200: rgba(249, 244, 235, 0.05);
-
   --accent-1: #b1c1ef;
   --accent-2: #f2acac;
   --accent-3: #ffdd94;

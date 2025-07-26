@@ -34,10 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const moveDistance = -(wrapperWidth - viewportWidth);
 
-  console.log("Wrapper width:", wrapperWidth);
-  console.log("Viewport width:", viewportWidth);
-  console.log("Move distance:", moveDistance);
-
   const progressBarElement = progressBar;
 
   ScrollTrigger.create({

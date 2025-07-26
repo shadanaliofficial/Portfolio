@@ -1,4 +1,3 @@
-/* about - hero */
 .about-hero {
   position: relative;
   width: 100vw;
@@ -24,7 +23,6 @@
   color: var(--base-100);
 }
 
-/* about - intro copy */
 .anime-text-container {
   position: relative;
   width: 100vw;
@@ -118,7 +116,6 @@
   opacity: 0;
 }
 
-/* about - skills */
 .about-skills {
   position: relative;
   width: 100vw;
@@ -204,7 +201,6 @@
   gap: 2rem;
 }
 
-/* about - gallery */
 .about-sticky-cards {
   position: relative;
   width: 100vw;

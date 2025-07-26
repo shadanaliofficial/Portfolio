@@ -11,7 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let lastScrollTime = 0;
   let imagesPreloaded = false;
 
-  // Preload all images
+  gsap.set(".slider", {
+    opacity: 0,
+  });
+
+  gsap.to(".slider", {
+    opacity: 1,
+    duration: 0.5,
+    ease: "power2.out",
+  });
+
   function preloadImages() {
     return new Promise((resolve) => {
       let loadedCount = 0;
@@ -48,14 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
     img.src = slideData.slideImg;
     img.alt = "";
 
-    // Set initial opacity to 0 and fade in once loaded
     img.style.opacity = "0";
 
     if (imagesPreloaded) {
-      // If images are preloaded, show immediately
       img.style.opacity = "1";
     } else {
-      // Fallback: fade in when loaded
       img.onload = () => {
         gsap.to(img, { opacity: 1, duration: 0.3 });
       };
@@ -400,18 +406,15 @@ document.addEventListener("DOMContentLoaded", () => {
     animateSlide(direction);
   }
 
-  // Initialize after preloading images
   async function init() {
     try {
       await preloadImages();
-      console.log("All images preloaded successfully");
     } catch (error) {
-      console.warn("Image preloading failed, continuing anyway:", error);
+      console.warn("Image preloading failed", error);
     }
 
     initializeFirstSlide();
 
-    // Event listeners
     window.addEventListener(
       "wheel",
       (e) => {
@@ -457,6 +460,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Start the initialization
   init();
 });
