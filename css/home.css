@@ -666,6 +666,22 @@
   .home-spotlight .home-spotlight-images-row {
     gap: 1rem;
   }
+
+  .outro h3 {
+    width: 90%;
+  }
+
+  .outro .outro-strips {
+    width: 300vw;
+  }
+
+  .outro .os-1 {
+    margin-top: 2.5rem;
+  }
+
+  .outro .os-3 {
+    margin-top: 10rem;
+  }
 }
 
 @media (max-width: 800px) {
