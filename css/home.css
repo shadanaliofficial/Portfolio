@@ -656,6 +656,12 @@
     text-align: center;
   }
 
+  .home-spotlight .home-spotlight-images {
+    position: absolute;
+    left: -75vw;
+    width: 250vw;
+  }
+
   .home-spotlight .home-spotlight-images-row {
     gap: 1rem;
   }
