@@ -172,13 +172,13 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border: 1px dashed var(--base-secondary-fade);
   border-radius: 16px;
   padding: 1.5rem;
 }
 
 .home-about .home-about-card p.mono {
-  opacity: 0.5;
+  color: var(--base-secondary-dark);
 }
 
 /* home - services */
@@ -424,7 +424,6 @@
 }
 
 .home-spotlight .home-spotlight-image.image-holder {
-  background-color: var(--base-200);
   opacity: 0.75;
 }
 

@@ -6,9 +6,13 @@
   --base-200: #efece5;
   --base-300: #0a0a0a;
 
-  --accent-1: #d9e0f6;
-  --accent-2: #ffd2d2;
-  --accent-3: #fce1a6;
+  --base-secondary-dark: #686560;
+  --base-secondary-fade: rgba(249, 244, 235, 0.15);
+  --base-secondary-fade-200: rgba(249, 244, 235, 0.05);
+
+  --accent-1: #b1c1ef;
+  --accent-2: #f2acac;
+  --accent-3: #ffdd94;
 }
 
 * {
