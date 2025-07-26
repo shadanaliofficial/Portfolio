@@ -1,8 +1,10 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { initAnimations } from "./anime";
 
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
+  initAnimations();
 
   const wrapper = document.querySelector(".project-snapshots-wrapper");
   const snapshotsSection = document.querySelector(".project-snapshots");

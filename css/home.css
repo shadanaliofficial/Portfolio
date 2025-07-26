@@ -18,11 +18,11 @@
   width: 90%;
   margin: 0 auto;
   text-align: center;
-  padding-top: 18svh;
+  padding-top: 15svh;
 }
 
 .hero .hero-content .hero-header h1 {
-  font-size: 15vw;
+  font-size: 16vw;
 }
 
 .hero .hero-content .hero-footer {
@@ -391,7 +391,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  width: 40%;
+  width: 50%;
 }
 
 .home-spotlight .home-spotlight-images {
@@ -498,7 +498,7 @@
 }
 
 .outro h3 {
-  width: 40%;
+  width: 50%;
   text-align: center;
 }
 
