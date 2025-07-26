@@ -425,7 +425,7 @@
 
 .home-spotlight .home-spotlight-image.image-holder {
   background-color: var(--base-200);
-  opacity: 0.25;
+  opacity: 0.75;
 }
 
 .home-spotlight .spotlight-mask-image-container {
@@ -462,6 +462,26 @@
   width: 40%;
   text-align: center;
   color: var(--base-100);
+}
+
+.home-spotlight-top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.home-spotlight-bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.home-spotlight-top-bar .container,
+.home-spotlight-bottom-bar .container {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* outro */
@@ -635,6 +655,16 @@
 
   .home-services-header {
     transform: translateY(0%);
+  }
+
+  .home-spotlight .spotlight-mask-header,
+  .home-spotlight .spotlight-intro-header {
+    width: 90%;
+    text-align: center;
+  }
+
+  .home-spotlight .home-spotlight-images-row {
+    gap: 1rem;
   }
 }
 

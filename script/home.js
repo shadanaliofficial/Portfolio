@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (maskContainer && maskImage) {
         if (progress >= 0.25 && progress <= 0.75) {
           const maskProgress = (progress - 0.25) / 0.5;
-          const maskSize = `${maskProgress * 400}%`;
+          const maskSize = `${maskProgress * 475}%`;
 
           const imageScale = 1.25 - maskProgress * 0.25;
 
@@ -270,8 +270,8 @@ document.addEventListener("DOMContentLoaded", () => {
             scale: 1.25,
           });
         } else if (progress > 0.75) {
-          maskContainer.style.setProperty("-webkit-mask-size", "400%");
-          maskContainer.style.setProperty("mask-size", "400%");
+          maskContainer.style.setProperty("-webkit-mask-size", "475%");
+          maskContainer.style.setProperty("mask-size", "475%");
 
           gsap.set(maskImage, {
             scale: 1,

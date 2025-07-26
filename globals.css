@@ -91,11 +91,11 @@ p.mono span {
 .symbols-container {
   display: flex;
   gap: 0.5rem;
-  height: 1.25rem;
+  height: 1.125rem;
 }
 
 .symbols-container .symbol {
-  width: 1.25rem;
+  width: 1.125rem;
 }
 
 @media (max-width: 1000px) {
