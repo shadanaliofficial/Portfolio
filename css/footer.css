@@ -1,17 +1,18 @@
 footer {
   position: relative;
   width: 100vw;
-  height: 100svh;
+  height: max-content;
   overflow: hidden;
   background-color: var(--base-300);
   color: var(--base-100);
+  padding: 10rem 0 2rem 0;
 }
 
 footer .container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 footer .container > div {
