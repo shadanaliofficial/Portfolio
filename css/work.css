@@ -143,4 +143,9 @@
   .slide-title h2 {
     font-size: 3rem;
   }
+
+  .slide-info {
+    padding: 0 3rem;
+    bottom: 3rem;
+  }
 }
