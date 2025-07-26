@@ -117,3 +117,51 @@ footer .footer-copy {
   flex-direction: column;
   gap: 0.25rem;
 }
+
+@media (max-width: 1000px) {
+  footer {
+    height: max-content;
+    padding-top: 8rem;
+  }
+
+  footer .container .footer-top .footer-col:nth-child(2) {
+    display: none;
+  }
+
+  footer .footer-email-row {
+    width: 100%;
+  }
+
+  footer .footer-email-row input {
+    font-size: 2rem;
+  }
+
+  footer .footer-email-row button {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  footer .footer-email-row button img {
+    width: 0.5rem;
+  }
+
+  footer .container > div {
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  footer .footer-bottom .footer-col:nth-child(2) {
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  footer .footer-copyright .footer-col:nth-child(1) {
+    display: none;
+  }
+
+  footer .footer-copyright .footer-col:nth-child(2) {
+    width: 100%;
+    flex-direction: column-reverse;
+    gap: 0.25rem;
+  }
+}
