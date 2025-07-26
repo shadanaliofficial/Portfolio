@@ -9,6 +9,32 @@ document.addEventListener("DOMContentLoaded", () => {
   let isAnimating = false;
   let scrollAllowed = false;
   let lastScrollTime = 0;
+  let imagesPreloaded = false;
+
+  // Preload all images
+  function preloadImages() {
+    return new Promise((resolve) => {
+      let loadedCount = 0;
+      const totalImages = slides.length;
+
+      if (totalImages === 0) {
+        resolve();
+        return;
+      }
+
+      slides.forEach((slide) => {
+        const img = new Image();
+        img.onload = img.onerror = () => {
+          loadedCount++;
+          if (loadedCount === totalImages) {
+            imagesPreloaded = true;
+            resolve();
+          }
+        };
+        img.src = slide.slideImg;
+      });
+    });
+  }
 
   function createSlide(slideIndex) {
     const slideData = slides[slideIndex - 1];
@@ -21,6 +47,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const img = document.createElement("img");
     img.src = slideData.slideImg;
     img.alt = "";
+
+    // Set initial opacity to 0 and fade in once loaded
+    img.style.opacity = "0";
+
+    if (imagesPreloaded) {
+      // If images are preloaded, show immediately
+      img.style.opacity = "1";
+    } else {
+      // Fallback: fade in when loaded
+      img.onload = () => {
+        gsap.to(img, { opacity: 1, duration: 0.3 });
+      };
+    }
+
     slideImg.appendChild(img);
 
     const slideHeader = document.createElement("div");
@@ -360,49 +400,63 @@ document.addEventListener("DOMContentLoaded", () => {
     animateSlide(direction);
   }
 
-  initializeFirstSlide();
+  // Initialize after preloading images
+  async function init() {
+    try {
+      await preloadImages();
+      console.log("All images preloaded successfully");
+    } catch (error) {
+      console.warn("Image preloading failed, continuing anyway:", error);
+    }
 
-  window.addEventListener(
-    "wheel",
-    (e) => {
-      e.preventDefault();
-      const direction = e.deltaY > 0 ? "down" : "up";
-      handleScroll(direction);
-    },
-    { passive: false }
-  );
+    initializeFirstSlide();
 
-  let touchStartY = 0;
-  let isTouchActive = false;
-
-  window.addEventListener(
-    "touchstart",
-    (e) => {
-      touchStartY = e.touches[0].clientY;
-      isTouchActive = true;
-    },
-    { passive: false }
-  );
-
-  window.addEventListener(
-    "touchmove",
-    (e) => {
-      e.preventDefault();
-      if (!isTouchActive || isAnimating || !scrollAllowed) return;
-
-      const touchCurrentY = e.touches[0].clientY;
-      const difference = touchStartY - touchCurrentY;
-
-      if (Math.abs(difference) > 50) {
-        isTouchActive = false;
-        const direction = difference > 0 ? "down" : "up";
+    // Event listeners
+    window.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
+        const direction = e.deltaY > 0 ? "down" : "up";
         handleScroll(direction);
-      }
-    },
-    { passive: false }
-  );
+      },
+      { passive: false }
+    );
 
-  window.addEventListener("touchend", () => {
-    isTouchActive = false;
-  });
+    let touchStartY = 0;
+    let isTouchActive = false;
+
+    window.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartY = e.touches[0].clientY;
+        isTouchActive = true;
+      },
+      { passive: false }
+    );
+
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        e.preventDefault();
+        if (!isTouchActive || isAnimating || !scrollAllowed) return;
+
+        const touchCurrentY = e.touches[0].clientY;
+        const difference = touchStartY - touchCurrentY;
+
+        if (Math.abs(difference) > 50) {
+          isTouchActive = false;
+          const direction = difference > 0 ? "down" : "up";
+          handleScroll(direction);
+        }
+      },
+      { passive: false }
+    );
+
+    window.addEventListener("touchend", () => {
+      isTouchActive = false;
+    });
+  }
+
+  // Start the initialization
+  init();
 });
