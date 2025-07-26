@@ -5,7 +5,6 @@ import { SplitText } from "gsap/SplitText";
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
-  // hero cards animation
   const smoothStep = (p) => p * p * (3 - 2 * p);
 
   if (window.innerWidth > 1000) {
@@ -97,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const headerProgress = gsap.utils.clamp(0, 1, progress / 0.9);
         const headerY = gsap.utils.interpolate(
-          "500%",
+          "300%",
           "0%",
           smoothStep(headerProgress)
         );
@@ -203,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // spotlight animation
   const spotlightImages = document.querySelector(".home-spotlight-images");
   const containerHeight = spotlightImages.offsetHeight;
   const viewportHeight = window.innerHeight;
@@ -304,7 +302,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // outro animation
   const outroHeader = document.querySelector(".outro h3");
   let outroSplit = null;
 
@@ -320,7 +317,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const outroStrips = document.querySelectorAll(".outro-strip");
   const stripSpeeds = [0.3, 0.4, 0.25, 0.35, 0.2, 0.25];
 
-  // outro text reveal animation
   ScrollTrigger.create({
     trigger: ".outro",
     start: "top top",
@@ -354,7 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // outro animation
   ScrollTrigger.create({
     trigger: ".outro",
     start: "top bottom",
