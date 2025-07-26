@@ -24,7 +24,7 @@
   height: calc(100svh - 3rem);
   border-radius: 16px;
   overflow: hidden;
-  border: 2px dashed var(--base-300);
+  border: 1px dashed var(--base-300);
 }
 
 .slide-img img {
@@ -136,6 +136,10 @@
   }
 
   .slide-description {
-    width: 100%;
+    width: 85%;
+  }
+
+  .slide-title h2 {
+    font-size: 3rem;
   }
 }
