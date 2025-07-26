@@ -86,6 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
         opacity: 1,
       });
 
+      const scaleMultiplier = window.innerWidth < 1000 ? 15 : 40;
+
       gsap.to(
         {},
         {
@@ -94,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ease: "power2.inOut",
           onUpdate: function () {
             const progress = this.progress();
-            const scale = initialScale + progress * 40;
+            const scale = initialScale + progress * scaleMultiplier;
 
             const newTranslateX = viewportCenterX - pathCenterX * scale;
             const newTranslateY = viewportCenterY - pathCenterY * scale;
