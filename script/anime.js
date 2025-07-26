@@ -115,85 +115,91 @@ function scrambleText(elements, duration = 0.4) {
 }
 
 export function initAnimations() {
-  const animatedElements = document.querySelectorAll("[data-animate-type]");
+  document.fonts.ready.then(() => {
+    const animatedElements = document.querySelectorAll("[data-animate-type]");
 
-  const sectionsWithScrollElements = new Set();
-  const sectionObservers = new Map();
+    const sectionsWithScrollElements = new Set();
+    const sectionObservers = new Map();
 
-  animatedElements.forEach((element) => {
-    const animationType = element.getAttribute("data-animate-type");
-    const delay = parseFloat(element.getAttribute("data-animate-delay")) || 0;
-    const animateOnScroll =
-      element.getAttribute("data-animate-on-scroll") === "true";
+    animatedElements.forEach((element) => {
+      const animationType = element.getAttribute("data-animate-type");
+      const delay = parseFloat(element.getAttribute("data-animate-delay")) || 0;
+      const animateOnScroll =
+        element.getAttribute("data-animate-on-scroll") === "true";
 
-    if (animateOnScroll) {
-      gsap.set(element, { opacity: 0 });
+      if (animateOnScroll) {
+        gsap.set(element, { opacity: 0 });
 
-      const parentSection = element.closest("section");
-      if (!parentSection) {
-        console.warn("No parent section found for scroll animation:", element);
-        return;
+        const parentSection = element.closest("section");
+        if (!parentSection) {
+          console.warn(
+            "No parent section found for scroll animation:",
+            element
+          );
+          return;
+        }
+
+        if (!sectionsWithScrollElements.has(parentSection)) {
+          sectionsWithScrollElements.add(parentSection);
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                  const sectionElements = entry.target.querySelectorAll(
+                    '[data-animate-on-scroll="true"]'
+                  );
+
+                  sectionElements.forEach((el) => {
+                    const elAnimationType =
+                      el.getAttribute("data-animate-type");
+                    const elDelay =
+                      parseFloat(el.getAttribute("data-animate-delay")) || 0;
+
+                    gsap.set(el, { opacity: 1 });
+
+                    switch (elAnimationType) {
+                      case "scramble":
+                        scrambleAnimation(el, elDelay);
+                        break;
+                      case "reveal":
+                        revealAnimation(el, elDelay);
+                        break;
+                      case "line-reveal":
+                        lineRevealAnimation(el, elDelay);
+                        break;
+                    }
+                  });
+
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              threshold: [0, 0.1, 0.3, 0.5, 0.7, 1.0],
+              rootMargin: "0px 0px -20% 0px",
+            }
+          );
+
+          observer.observe(parentSection);
+          sectionObservers.set(parentSection, observer);
+        }
+      } else {
+        switch (animationType) {
+          case "scramble":
+            scrambleAnimation(element, delay);
+            break;
+          case "reveal":
+            revealAnimation(element, delay);
+            break;
+          case "line-reveal":
+            lineRevealAnimation(element, delay);
+            break;
+          default:
+            console.warn(`Unknown animation type: ${animationType}`);
+        }
       }
-
-      if (!sectionsWithScrollElements.has(parentSection)) {
-        sectionsWithScrollElements.add(parentSection);
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-                const sectionElements = entry.target.querySelectorAll(
-                  '[data-animate-on-scroll="true"]'
-                );
-
-                sectionElements.forEach((el) => {
-                  const elAnimationType = el.getAttribute("data-animate-type");
-                  const elDelay =
-                    parseFloat(el.getAttribute("data-animate-delay")) || 0;
-
-                  gsap.set(el, { opacity: 1 });
-
-                  switch (elAnimationType) {
-                    case "scramble":
-                      scrambleAnimation(el, elDelay);
-                      break;
-                    case "reveal":
-                      revealAnimation(el, elDelay);
-                      break;
-                    case "line-reveal":
-                      lineRevealAnimation(el, elDelay);
-                      break;
-                  }
-                });
-
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          {
-            threshold: [0, 0.1, 0.3, 0.5, 0.7, 1.0],
-            rootMargin: "0px 0px -20% 0px",
-          }
-        );
-
-        observer.observe(parentSection);
-        sectionObservers.set(parentSection, observer);
-      }
-    } else {
-      switch (animationType) {
-        case "scramble":
-          scrambleAnimation(element, delay);
-          break;
-        case "reveal":
-          revealAnimation(element, delay);
-          break;
-        case "line-reveal":
-          lineRevealAnimation(element, delay);
-          break;
-        default:
-          console.warn(`Unknown animation type: ${animationType}`);
-      }
-    }
+    });
   });
 }
 
