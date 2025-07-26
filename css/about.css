@@ -16,7 +16,7 @@
 
 .about-hero .about-header {
   position: absolute;
-  bottom: 2rem;
+  bottom: 2.75rem;
   left: 50%;
   transform: translateX(-50%);
   width: 60%;

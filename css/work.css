@@ -20,8 +20,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100vw - 3rem);
-  height: calc(100svh - 3rem);
+  width: calc(100vw - 1.75rem);
+  height: calc(100svh - 1.75rem);
   border-radius: 12px;
   overflow: hidden;
   border: 1px dashed var(--base-300);

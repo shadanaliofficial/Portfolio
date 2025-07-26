@@ -22,10 +22,12 @@
   background-color: var(--base-300);
   border-radius: 8px;
   z-index: 2;
+  cursor: pointer;
 }
 
 .menu-logo {
   font-size: 1.25rem;
+  cursor: pointer;
 }
 
 .menu-logo img {
