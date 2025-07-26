@@ -1,4 +1,7 @@
 import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(SplitText);
 
 const menu = document.querySelector(".menu");
 const menuToggle = document.querySelector(".menu-toggle");
@@ -13,6 +16,7 @@ let isOpen = false;
 let lastScrollY = window.scrollY;
 let isMenuVisible = true;
 let isAnimating = false;
+let splitTexts = [];
 
 function initMenu() {
   gsap.set(menuOverlay, {
@@ -20,9 +24,23 @@ function initMenu() {
     transformOrigin: "top center",
   });
 
+  menuItems.forEach((item) => {
+    const link = item.querySelector("a");
+    if (link) {
+      const split = new SplitText(link, {
+        type: "words",
+        mask: "words",
+      });
+      splitTexts.push(split);
+
+      gsap.set(split.words, {
+        yPercent: 120,
+      });
+    }
+  });
+
   gsap.set(menuItems, {
-    opacity: 0,
-    y: 20,
+    opacity: 1,
   });
 
   gsap.set(menuFooter, {
@@ -63,16 +81,19 @@ function openMenu() {
     ease: "power3.out",
   });
 
+  const allWords = splitTexts.reduce((acc, split) => {
+    return acc.concat(split.words);
+  }, []);
+
   tl.to(
-    menuItems,
+    allWords,
     {
-      duration: 0.3,
-      opacity: 1,
-      y: 0,
+      duration: 0.75,
+      yPercent: 0,
       stagger: 0.05,
-      ease: "power3.out",
+      ease: "power4.out",
     },
-    "-=0.2"
+    "-=0.3"
   );
 
   tl.to(
@@ -83,7 +104,7 @@ function openMenu() {
       y: 0,
       ease: "power2.out",
     },
-    "-=0.1"
+    "-=0.3"
   );
 }
 
@@ -103,13 +124,27 @@ function closeMenu() {
     },
   });
 
-  tl.to([menuItems, menuFooter], {
-    duration: 0.4,
+  const allWords = splitTexts.reduce((acc, split) => {
+    return acc.concat(split.words);
+  }, []);
+
+  tl.to([menuFooter], {
+    duration: 0.3,
     opacity: 0,
     y: 20,
-    stagger: 0.02,
     ease: "power2.in",
   });
+
+  tl.to(
+    allWords,
+    {
+      duration: 0.25,
+      yPercent: 120,
+      stagger: -0.025,
+      ease: "power2.in",
+    },
+    "-=0.25"
+  );
 
   tl.to(
     menuOverlay,
@@ -118,7 +153,7 @@ function closeMenu() {
       scaleY: 0,
       ease: "power3.inOut",
     },
-    "-=0.1"
+    "-=0.2"
   );
 }
 
@@ -176,6 +211,14 @@ function init() {
 
   updateTime();
   setInterval(updateTime, 1000);
+}
+
+// Cleanup function to revert SplitText when needed
+function cleanup() {
+  splitTexts.forEach((split) => {
+    split.revert();
+  });
+  splitTexts = [];
 }
 
 if (document.readyState === "loading") {
