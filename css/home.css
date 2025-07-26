@@ -22,7 +22,7 @@
 }
 
 .hero .hero-content .hero-header h1 {
-  font-size: 20vw;
+  font-size: 15vw;
 }
 
 .hero .hero-content .hero-footer {
@@ -56,6 +56,7 @@
   flex: 1;
   position: relative;
   aspect-ratio: 5/7;
+  transform: scale(0);
 }
 
 .hero .hero-cards .card .hero-card-inner {
@@ -96,7 +97,6 @@
 }
 
 .hero .hero-cards .card#hero-card-1 {
-  transform-origin: top right;
   z-index: 2;
 }
 
@@ -105,7 +105,6 @@
 }
 
 .hero .hero-cards .card#hero-card-3 {
-  transform-origin: top left;
   z-index: 0;
 }
 

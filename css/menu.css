@@ -101,7 +101,7 @@
 }
 
 .menu-nav {
-  padding: 2rem 0 2rem 0;
+  padding: 2rem 0 3rem 0;
 }
 
 .menu-nav ul {
@@ -111,8 +111,8 @@
 }
 
 .menu-nav li {
+  margin: -4px 0;
   opacity: 0;
-  transform: translateY(20px);
 }
 
 .menu-nav a {
@@ -122,12 +122,11 @@
   text-transform: uppercase;
   text-decoration: none;
   color: var(--base-100);
-  font-family: "Druk Trial";
+  font-family: "Barlow Condensed";
   font-size: 5rem;
-  height: 5rem;
+  letter-spacing: -0.02rem;
   font-weight: 900;
-  line-height: 5rem;
-  letter-spacing: 0.02rem;
+  line-height: 0.85;
   overflow: hidden;
 }
 

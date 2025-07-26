@@ -1,9 +1,12 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { initAnimations } from "./anime";
 
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  initAnimations();
 
   // animated text
   const animeTextParagraphs = document.querySelectorAll(".anime-text p");

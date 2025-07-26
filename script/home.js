@@ -1,9 +1,26 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { initAnimations } from "./anime";
 
 document.addEventListener("DOMContentLoaded", () => {
+  initAnimations();
+
   gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  gsap.set(".hero .hero-cards .card", { transformOrigin: "center center" });
+
+  gsap.to(".hero .hero-cards .card", {
+    scale: 1,
+    duration: 0.75,
+    delay: 0.25,
+    stagger: 0.1,
+    ease: "power4.out",
+    onComplete: () => {
+      gsap.set("#hero-card-1", { transformOrigin: "top right" });
+      gsap.set("#hero-card-3", { transformOrigin: "top left" });
+    },
+  });
 
   const smoothStep = (p) => p * p * (3 - 2 * p);
 
