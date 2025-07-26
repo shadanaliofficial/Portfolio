@@ -50,3 +50,16 @@
   pointer-events: none;
   display: none;
 }
+
+.mask-bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99998;
+  background-color: #f9f4eb;
+  opacity: 1;
+  pointer-events: none;
+  display: none;
+}

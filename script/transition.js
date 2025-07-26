@@ -55,10 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return new Promise((resolve) => {
       createMaskOverlay();
 
-      gsap.set(".mask-transition", {
-        display: "block",
-      });
-
       const logoMask = document.getElementById("logoMask");
       const logoData =
         "M800 515.749L501.926 343.832V0H297.482V343.832L0 515.749L101.926 693L399.408 521.084L697.482 693L800 515.749Z";
@@ -81,15 +77,24 @@ document.addEventListener("DOMContentLoaded", () => {
         `translate(${translateX}, ${translateY}) scale(${initialScale})`
       );
 
+      gsap.set(".mask-transition", {
+        display: "block",
+      });
+
+      gsap.set(".mask-bg-overlay", {
+        display: "block",
+        opacity: 1,
+      });
+
       gsap.to(
         {},
         {
-          duration: 1.2,
-          delay: 0.3,
-          ease: "power2.inOut",
+          duration: 1,
+          delay: 0,
+          ease: "power4.inOut",
           onUpdate: function () {
             const progress = this.progress();
-            const scale = initialScale + progress * 50;
+            const scale = initialScale + progress * 40;
 
             const newTranslateX = viewportCenterX - pathCenterX * scale;
             const newTranslateY = viewportCenterY - pathCenterY * scale;
@@ -98,9 +103,15 @@ document.addEventListener("DOMContentLoaded", () => {
               "transform",
               `translate(${newTranslateX}, ${newTranslateY}) scale(${scale})`
             );
+
+            const fadeProgress = Math.min(1, progress * 2);
+            gsap.set(".mask-bg-overlay", {
+              opacity: 1 - fadeProgress,
+            });
           },
           onComplete: () => {
             gsap.set(".mask-transition", { display: "none" });
+            gsap.set(".mask-bg-overlay", { display: "none" });
             resolve();
           },
         }
@@ -116,9 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       gsap.to(".transition-overlay", {
         scaleY: 1,
-        duration: 0.6,
-        ease: "power2.inOut",
-        onComplete: () => {
+        duration: 1,
+        ease: "power4.out",
+        onStart: () => {
           gsap.set(".transition-logo", {
             top: "120%",
             opacity: 1,
@@ -127,8 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
           gsap.to(".transition-logo", {
             top: "50%",
             transform: "translate(-50%, -50%)",
-            duration: 0.5,
-            ease: "power2.out",
+            duration: 1,
+            delay: 0.5,
+            ease: "power4.out",
             onComplete: () => {
               setTimeout(() => {
                 resolve();
