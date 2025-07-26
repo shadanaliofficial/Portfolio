@@ -5,8 +5,12 @@ const menuToggle = document.querySelector(".menu-toggle");
 const menuOverlay = document.querySelector(".menu-overlay");
 const menuItems = document.querySelectorAll(".menu-nav li");
 const menuFooter = document.querySelector(".menu-footer");
+const menuLogo = document.querySelector(".menu-logo img");
+const hamburgerMenu = document.querySelector(".menu-hamburger-icon");
 
 let isOpen = false;
+let lastScrollY = window.scrollY;
+let isMenuVisible = true;
 
 function initMenu() {
   gsap.set(menuOverlay, {
@@ -35,14 +39,18 @@ function toggleMenu() {
 
 function openMenu() {
   isOpen = true;
-  menuToggle.classList.add("active");
+  if (hamburgerMenu) {
+    hamburgerMenu.classList.add("open");
+  }
+  if (menuLogo) {
+    menuLogo.classList.add("rotated");
+  }
 
   const tl = gsap.timeline();
 
   tl.to(menuOverlay, {
     duration: 0.5,
     scaleY: 1,
-
     ease: "power3.out",
   });
 
@@ -72,7 +80,12 @@ function openMenu() {
 
 function closeMenu() {
   isOpen = false;
-  menuToggle.classList.remove("active");
+  if (hamburgerMenu) {
+    hamburgerMenu.classList.remove("open");
+  }
+  if (menuLogo) {
+    menuLogo.classList.remove("rotated");
+  }
 
   const tl = gsap.timeline();
 
@@ -89,11 +102,33 @@ function closeMenu() {
     {
       duration: 0.5,
       scaleY: 0,
-
       ease: "power3.inOut",
     },
     "-=0.1"
   );
+}
+
+function handleScroll() {
+  const currentScrollY = window.scrollY;
+
+  if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    // Scrolling down
+    if (isOpen) {
+      closeMenu();
+    }
+    if (isMenuVisible) {
+      menu.classList.add("hidden");
+      isMenuVisible = false;
+    }
+  } else if (currentScrollY < lastScrollY) {
+    // Scrolling up
+    if (!isMenuVisible) {
+      menu.classList.remove("hidden");
+      isMenuVisible = true;
+    }
+  }
+
+  lastScrollY = currentScrollY;
 }
 
 function updateTime() {
@@ -125,6 +160,9 @@ function init() {
       });
     }
   });
+
+  // Add scroll listener
+  window.addEventListener("scroll", handleScroll);
 
   updateTime();
   setInterval(updateTime, 1000);

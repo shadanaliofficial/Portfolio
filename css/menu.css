@@ -6,11 +6,16 @@
   width: 50%;
   max-width: 600px;
   z-index: 1000;
+  transition: transform 0.4s ease;
+}
+
+.menu.hidden {
+  transform: translateX(-50%) translateY(-200%);
 }
 
 .menu-header {
   position: relative;
-  padding: 1rem 1.75rem 1rem 1.75rem;
+  padding: 1rem 1.5rem 1rem 1.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,42 +30,57 @@
 
 .menu-logo img {
   width: 1.25rem;
+  transition: transform 0.5s ease;
+}
+
+.menu-logo img.rotated {
+  transform: rotate(180deg);
 }
 
 .menu-toggle {
+  position: relative;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0.5rem;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 28px;
-  height: 28px;
   justify-content: center;
   align-items: center;
+  width: 28px;
+  height: 28px;
 }
 
-.menu-toggle span {
+.menu-hamburger-icon {
+  width: 20px;
+  height: 25px;
+  position: absolute;
+  top: 10px;
+  right: 0;
+  cursor: pointer;
+}
+
+.menu-item {
+  transition: all 0.2s ease;
+  display: block;
   width: 20px;
   height: 2px;
+  margin: 0 0 4px;
   background: var(--base-100);
   border-radius: 1px;
-  transition: all 0.3s ease;
-  transform-origin: center;
 }
 
-.menu-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+.menu-hamburger-icon.open .menu-item {
+  background: var(--base-100);
 }
 
-.menu-toggle.active span:nth-child(2) {
-  opacity: 0;
-  transform: scale(0);
+.menu-hamburger-icon.open .menu-item:first-child {
+  transform: rotate(45deg);
+  transform-origin: 5px;
 }
 
-.menu-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+.menu-hamburger-icon.open .menu-item:nth-child(2) {
+  transform: rotate(-45deg);
+  transform-origin: 6px;
 }
 
 .menu-overlay {
