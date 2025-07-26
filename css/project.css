@@ -103,7 +103,7 @@
 
 .snapshots-progress-bar {
   position: absolute;
-  bottom: 3rem;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   width: 20%;
@@ -135,7 +135,7 @@
   position: relative;
   width: 100vw;
   height: 100%;
-  padding: 4rem 0 6rem 0;
+  padding: 8rem 0 10rem 0;
   overflow: hidden;
 }
 
@@ -161,7 +161,7 @@
   overflow: hidden;
 }
 
-.next-project .container {
+.next-project .container.next-project-data {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -188,4 +188,55 @@
 .next-project .next-project-meta-col:nth-child(2) {
   display: flex;
   gap: 2rem;
+}
+
+.home-spotlight-top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.home-spotlight-bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.home-spotlight-top-bar .container,
+.home-spotlight-bottom-bar .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 1000px) {
+  .project-header .project-meta,
+  .project-header .project-meta-col:nth-child(2),
+  .next-project .next-project-meta,
+  .next-project .next-project-meta-col:nth-child(2) {
+    flex-direction: column;
+  }
+
+  .project-banner-img {
+    aspect-ratio: 4/5;
+  }
+
+  .project-overview .container .project-overview-col:nth-child(1),
+  .project-info .container .project-info-col:nth-child(1) {
+    display: none;
+  }
+
+  .project-overview
+    .container
+    .project-overview-col:nth-child(2)
+    .project-overview-copy,
+  .project-info .container .project-info-col:nth-child(2) .project-info-copy {
+    width: 100%;
+  }
+
+  .snapshots-progress-bar {
+    bottom: 5rem;
+    width: calc(100% - 4rem);
+  }
 }
