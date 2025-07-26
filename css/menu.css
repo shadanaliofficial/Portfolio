@@ -166,7 +166,7 @@
   color: var(--base-secondary-dark);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .menu {
     width: 90%;
     max-width: none;
@@ -184,6 +184,8 @@
 
   .menu-footer {
     padding: 2rem 1.75rem 2rem 1.75rem;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .menu-social {
