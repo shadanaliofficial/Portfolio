@@ -1,7 +1,8 @@
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(SplitText);
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 let splitInstances = [];
 
@@ -120,19 +121,58 @@ export function initAnimations() {
   animatedElements.forEach((element) => {
     const animationType = element.getAttribute("data-animate-type");
     const delay = parseFloat(element.getAttribute("data-animate-delay")) || 0;
+    const animateOnScroll =
+      element.getAttribute("data-animate-on-scroll") === "true";
 
-    switch (animationType) {
-      case "scramble":
-        scrambleAnimation(element, delay);
-        break;
-      case "reveal":
-        revealAnimation(element, delay);
-        break;
-      case "line-reveal":
-        lineRevealAnimation(element, delay);
-        break;
-      default:
-        console.warn(`Unknown animation type: ${animationType}`);
+    if (animateOnScroll) {
+      if (animationType === "scramble") {
+        gsap.set(element, { opacity: 0 });
+      } else {
+        gsap.set(element, { opacity: 0 });
+      }
+
+      const parentSection = element.closest("section");
+      if (!parentSection) {
+        console.warn("No parent section found for scroll animation:", element);
+        return;
+      }
+
+      ScrollTrigger.create({
+        trigger: parentSection,
+        start: "top 50%",
+        once: true,
+        onEnter: () => {
+          gsap.set(element, { opacity: 1 });
+
+          switch (animationType) {
+            case "scramble":
+              scrambleAnimation(element, delay);
+              break;
+            case "reveal":
+              revealAnimation(element, delay);
+              break;
+            case "line-reveal":
+              lineRevealAnimation(element, delay);
+              break;
+            default:
+              console.warn(`Unknown animation type: ${animationType}`);
+          }
+        },
+      });
+    } else {
+      switch (animationType) {
+        case "scramble":
+          scrambleAnimation(element, delay);
+          break;
+        case "reveal":
+          revealAnimation(element, delay);
+          break;
+        case "line-reveal":
+          lineRevealAnimation(element, delay);
+          break;
+        default:
+          console.warn(`Unknown animation type: ${animationType}`);
+      }
     }
   });
 }
