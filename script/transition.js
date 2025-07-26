@@ -3,30 +3,139 @@ import gsap from "gsap";
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM loaded");
 
+  function calculateLogoScale() {
+    const logoSize = 60;
+    const logoData =
+      "M800 515.749L501.926 343.832V0H297.482V343.832L0 515.749L101.926 693L399.408 521.084L697.482 693L800 515.749Z";
+
+    const tempSvg = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    const tempPath = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    tempPath.setAttribute("d", logoData);
+    tempSvg.appendChild(tempPath);
+    document.body.appendChild(tempSvg);
+
+    const bbox = tempPath.getBBox();
+    document.body.removeChild(tempSvg);
+
+    const scale = logoSize / Math.max(bbox.width, bbox.height);
+
+    return { scale, bbox };
+  }
+
+  function createMaskOverlay() {
+    const maskOverlay = document.querySelector(".mask-transition");
+
+    maskOverlay.innerHTML = `
+      <svg width="100%" height="100%">
+        <defs>
+          <mask id="logoRevealMask">
+            <rect width="100%" height="100%" fill="white" />
+            <path id="logoMask" fill="black"></path>
+          </mask>
+        </defs>
+        <rect
+          width="100%"
+          height="100%"
+          fill="var(--base-300)"
+          mask="url(#logoRevealMask)"
+        />
+      </svg>
+    `;
+  }
+
   revealTransition();
 
   function revealTransition() {
     return new Promise((resolve) => {
-      gsap.set(".transition-overlay", { scaleY: 1, transformOrigin: "top" });
-      gsap.to(".transition-overlay", {
-        scaleY: 0,
-        duration: 0.6,
-        stagger: -0.1,
-        ease: "power2.inOut",
-        onComplete: resolve,
+      createMaskOverlay();
+
+      gsap.set(".mask-transition", {
+        display: "block",
       });
+
+      const logoMask = document.getElementById("logoMask");
+      const logoData =
+        "M800 515.749L501.926 343.832V0H297.482V343.832L0 515.749L101.926 693L399.408 521.084L697.482 693L800 515.749Z";
+
+      logoMask.setAttribute("d", logoData);
+
+      const { scale: logoScale, bbox } = calculateLogoScale();
+      const pathCenterX = bbox.x + bbox.width / 2;
+      const pathCenterY = bbox.y + bbox.height / 2;
+
+      const viewportCenterX = window.innerWidth / 2;
+      const viewportCenterY = window.innerHeight / 2;
+
+      const initialScale = logoScale;
+      const translateX = viewportCenterX - pathCenterX * initialScale;
+      const translateY = viewportCenterY - pathCenterY * initialScale;
+
+      logoMask.setAttribute(
+        "transform",
+        `translate(${translateX}, ${translateY}) scale(${initialScale})`
+      );
+
+      gsap.to(
+        {},
+        {
+          duration: 1.2,
+          delay: 0.3,
+          ease: "power2.inOut",
+          onUpdate: function () {
+            const progress = this.progress();
+            const scale = initialScale + progress * 50;
+
+            const newTranslateX = viewportCenterX - pathCenterX * scale;
+            const newTranslateY = viewportCenterY - pathCenterY * scale;
+
+            logoMask.setAttribute(
+              "transform",
+              `translate(${newTranslateX}, ${newTranslateY}) scale(${scale})`
+            );
+          },
+          onComplete: () => {
+            gsap.set(".mask-transition", { display: "none" });
+            resolve();
+          },
+        }
+      );
+
+      gsap.set(".transition-overlay", { scaleY: 0 });
     });
   }
 
   function animateTransition() {
     return new Promise((resolve) => {
       gsap.set(".transition-overlay", { scaleY: 0, transformOrigin: "bottom" });
+
       gsap.to(".transition-overlay", {
         scaleY: 1,
         duration: 0.6,
-        stagger: 0.1,
         ease: "power2.inOut",
-        onComplete: resolve,
+        onComplete: () => {
+          gsap.set(".transition-logo", {
+            top: "120%",
+            opacity: 1,
+          });
+
+          gsap.to(".transition-logo", {
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            duration: 0.5,
+            ease: "power2.out",
+            onComplete: () => {
+              setTimeout(() => {
+                resolve();
+              }, 200);
+            },
+          });
+        },
       });
     });
   }
