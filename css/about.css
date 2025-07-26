@@ -267,21 +267,26 @@
   }
 
   .anime-text-container .anime-text {
-    width: 90%;
+    width: 100%;
   }
 
   .anime-text-container .anime-text p {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
   }
 
   .anime-text-container .anime-text .word {
     margin-right: 0.1rem;
     margin-bottom: 0.15rem;
-    padding: 0.1rem 0.2rem;
+    padding: 0.05rem 0.125rem;
   }
 
   .anime-text-container .anime-text .word.keyword-wrapper {
     margin: 0 0.2rem 0.1rem 0.1rem;
+  }
+
+  .anime-text-container .anime-text .word span.keyword::before {
+    width: calc(100% + 0.35rem);
+    height: calc(100% + 0.075rem);
   }
 
   .about-hero .about-header {
@@ -295,6 +300,10 @@
     height: 100svh;
   }
 
+  .about-skills .about-skills-col:nth-child(1) h3 {
+    width: 100%;
+  }
+
   .about-skills .container {
     flex-direction: column;
   }
@@ -302,6 +311,10 @@
   .about-skills .about-skills-col:nth-child(1) {
     justify-content: flex-start;
     gap: 4rem;
+  }
+
+  .skills-playground {
+    flex: 2 !important;
   }
 
   .about-skills .object-container .object {

@@ -10,6 +10,8 @@ function getTextContent(element) {
 }
 
 export function scrambleAnimation(element, delay = 0) {
+  if (window.innerWidth < 1200) return;
+
   const textContent = getTextContent(element);
 
   if (!textContent.trim()) return;
@@ -30,6 +32,8 @@ export function scrambleAnimation(element, delay = 0) {
 }
 
 export function revealAnimation(element, delay = 0) {
+  if (window.innerWidth < 1200) return;
+
   const textContent = getTextContent(element);
 
   if (!textContent.trim()) return;
@@ -55,6 +59,8 @@ export function revealAnimation(element, delay = 0) {
 }
 
 export function lineRevealAnimation(element, delay = 0) {
+  if (window.innerWidth < 1200) return;
+
   const textContent = getTextContent(element);
 
   if (!textContent.trim()) return;
@@ -115,6 +121,10 @@ function scrambleText(elements, duration = 0.4) {
 }
 
 export function initAnimations() {
+  if (window.innerWidth < 1200) {
+    return;
+  }
+
   document.fonts.ready.then(() => {
     const animatedElements = document.querySelectorAll("[data-animate-type]");
 
@@ -211,6 +221,8 @@ export function cleanupAnimations() {
 }
 
 export function animateElement(selector, type, delay = 0) {
+  if (window.innerWidth < 1200) return;
+
   const element = document.querySelector(selector);
   if (!element) {
     console.warn(`Element not found: ${selector}`);
@@ -233,6 +245,8 @@ export function animateElement(selector, type, delay = 0) {
 }
 
 export function animateElements(selector, type, delay = 0, staggerDelay = 0.1) {
+  if (window.innerWidth < 1200) return;
+
   const elements = document.querySelectorAll(selector);
   if (!elements.length) {
     console.warn(`Elements not found: ${selector}`);
