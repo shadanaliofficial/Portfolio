@@ -49,6 +49,16 @@
   justify-content: space-between;
 }
 
+.mono a {
+  color: white;           /* keeps the text white */
+  text-decoration: none;  /* removes the underline */
+}
+
+.mono a:hover {
+  color: #ccc;            /* optional: a subtle hover color */
+}
+
+
 @media (max-width: 1000px) {
   .contact .contact-gif {
     right: unset;

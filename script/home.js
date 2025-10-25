@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
-  gsap.set(".hero .hero-cards .card", { transformOrigin: "center center" });
+  // gsap.set(".hero .hero-cards .card", { transformOrigin: "center center" });
 
   gsap.to(".hero .hero-cards .card", {
     scale: 1,
@@ -387,4 +387,70 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
   });
+  // Smooth type → hold → delete → next (loop) using GSAP
+function smoothTypeLoop(targetSelector, words, options = {}) {
+  const el = document.querySelector(targetSelector);
+  if (!el) return;
+
+  const cfg = Object.assign(
+    {
+      typeDurPerChar: 0.06,   // seconds per char while typing
+      deleteDurPerChar: 0.04, // seconds per char while deleting
+      hold: 0.6,              // pause after a word is fully typed
+      gap: 0.15,              // tiny gap between delete and next word
+      easeIn: "power2.out",   // typing ease
+      easeOut: "power2.in",   // deleting ease
+    },
+    options
+  );
+
+  let index = 0;
+
+  function playWord() {
+    const word = words[index];
+
+    // TYPE
+    gsap.set(el, { textContent: "" });
+    const typeState = { chars: 0 };
+
+    gsap.to(typeState, {
+      chars: word.length,
+      duration: Math.max(0.2, word.length * cfg.typeDurPerChar),
+      ease: cfg.easeIn,
+      onUpdate: () => {
+        el.textContent = word.slice(0, Math.round(typeState.chars));
+      },
+      onComplete: () => {
+        // HOLD
+        gsap.delayedCall(cfg.hold, () => {
+          // DELETE
+          const delState = { chars: word.length };
+          gsap.to(delState, {
+            chars: 0,
+            duration: Math.max(0.15, word.length * cfg.deleteDurPerChar),
+            ease: cfg.easeOut,
+            onUpdate: () => {
+              el.textContent = word.slice(0, Math.round(delState.chars));
+            },
+            onComplete: () => {
+              index = (index + 1) % words.length;
+              gsap.delayedCall(cfg.gap, playWord);
+            },
+          });
+        });
+      },
+    });
+  }
+
+  playWord();
+}
+
+// Start the smooth loop
+smoothTypeLoop("#type-loop", ["DESIGNING", "DEVELOPMENT"], {
+  typeDurPerChar: 0.065,
+  deleteDurPerChar: 0.065,
+  hold: 1.2,
+  gap: 0.25,
+});
+
 });

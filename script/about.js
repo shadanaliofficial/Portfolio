@@ -12,15 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const wordHighlightBgColor = "191, 188, 180";
 
   const keywords = [
-    "corner",
-    "scroll",
-    "archive",
-    "learnings",
-    "rhythm",
-    "detail",
-    "deploy",
-    "caffeine",
-    "messing",
+    "online",
+    "legacy",
+    "journal",
+    "shadan",
+    "studio",
+    "purpose",
+    "launch",
+    "focus",
+    "intent",
   ];
 
   animeTextParagraphs.forEach((paragraph) => {

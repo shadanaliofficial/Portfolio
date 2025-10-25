@@ -6,6 +6,7 @@ footer {
   background-color: var(--base-300);
   color: var(--base-100);
   padding: 8rem 0 4rem 0;
+  font-family: "Playfair Display", serif;
 }
 
 footer .container {
@@ -122,7 +123,18 @@ footer .footer-copy {
 
 footer a {
   color: var(--base-100);
+  font-size: 1.5rem;
+  display: inline-block; /* ✅ Needed for transform to work */
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
+
+footer a:hover {
+  transform: scale(1.1);
+  text-shadow: 1px 2px 3px rgba(255, 255, 255, 0.5);
+}
+
+
+
 
 @media (max-width: 1000px) {
   footer {

@@ -85,11 +85,20 @@ document.addEventListener("DOMContentLoaded", () => {
     slideDescription.appendChild(p);
 
     const slideLink = document.createElement("div");
-    slideLink.className = "slide-link";
-    const a = document.createElement("a");
-    a.href = slideData.slideUrl;
-    a.textContent = "View Project";
-    slideLink.appendChild(a);
+slideLink.className = "slide-link";
+
+if (slideData.status === "done") {
+  const a = document.createElement("a");
+  a.href = slideData.slideUrl;
+  a.textContent = "View Project";
+  slideLink.appendChild(a);
+} else {
+  const span = document.createElement("span");
+  span.textContent = "Under Progress";
+  span.classList.add("under-progress");
+  slideLink.appendChild(span);
+}
+
 
     slideHeader.appendChild(slideTitle);
     slideHeader.appendChild(slideDescription);

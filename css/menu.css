@@ -19,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--base-300);
+  background-color: #9e102c;
   border-radius: 8px;
   z-index: 2;
   cursor: pointer;
@@ -90,7 +90,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  background-color: var(--base-300);
+  background-color: #dc143c;
   border-radius: 0 0 8px 8px;
   margin-top: -8px;
   padding-top: 8px;
@@ -163,7 +163,7 @@
 
 .menu-time {
   width: max-content;
-  color: var(--base-secondary-dark);
+  color: #fff;
 }
 
 @media (max-width: 1000px) {

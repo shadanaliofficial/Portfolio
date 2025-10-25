@@ -1,35 +1,39 @@
 const slides = [
   {
-    slideTitle: "Brainstorm OS",
+    slideTitle: "FLAMBOYANT ATELIER",
     slideDescription:
-      "A concept UI for a neural-thinking workspace. Designed to visualize raw ideas, tangled thoughts, and clean execution — all at once.",
-    slideUrl: "/project",
-    slideTags: ["Web Design", "UI/UX", "Concept UI", "Creative Dev"],
-    slideImg: "/work/slider-img-1.jpg",
-  },
-  {
-    slideTitle: "Orange Room",
-    slideDescription:
-      "A surreal microsite exploring control, uniformity, and digital disconnect. Built with scroll-reactive animations and bold, brutalist layout.",
-    slideUrl: "/project",
+      "A refined, interactive interior design studio website blending minimalism and elegance, highlighting projects, storytelling and seamless user experience with visual sophistication.",
+    slideUrl: "https://mohtasham-mt6i.vercel.app/",
     slideTags: ["Creative Dev", "Scroll UX", "Experimental", "Visual Story"],
-    slideImg: "/work/slider-img-2.jpg",
+    slideImg: "/work/slider-img-1.jpg",
+    status: "done",
   },
   {
-    slideTitle: "Futureschool",
+    slideTitle: "SANGAM REAL ESTATE",
     slideDescription:
-      "A quirky concept for a 60s-style AI education platform. Handcrafted visuals meet structured layouts for a playful learning interface.",
-    slideUrl: "/project",
-    slideTags: ["UI Design", "Theme Concept", "Playful UX", "Frontend"],
-    slideImg: "/work/slider-img-3.jpg",
+      "A modern, dynamic real estate landing page showcasing properties, virtual tours and services with sleek design, intuitive navigation and engaging user experience.",
+    slideUrl: "https://real-estate-475e.vercel.app/",
+    slideTags: ["Modern", "UI/UX", "Responsive", "Minimalist"],
+    slideImg: "/work/slider-img-2.webp",
+    status: "done",
   },
   {
-    slideTitle: "Mindwave Grid",
+    slideTitle: "INFLOOK STUDIO",
     slideDescription:
-      "A visual identity experiment for a VR-based ideation tool. Dynamic grids, floating modules, and warm tones bring structure to wild thinking.",
-    slideUrl: "/project",
-    slideTags: ["VR Design", "Grid System", "Creative Tech", "3D UI"],
-    slideImg: "/work/slider-img-4.jpg",
+      "A stylish, vibrant e-commerce fashion website featuring collections, seamless shopping, interactive UI and a premium user friendly browsing experience.",
+    slideUrl: "/profject",
+    slideTags: ["UI Design", "Great UX", "Solid Backend", "Modern Frontend"],
+    slideImg: "/work/slider-img-3.png",
+    status: "progress",
+  },
+  {
+    slideTitle: "THE PREM GRID",
+    slideDescription:
+      "A luxurious, elegant hotel website highlighting rooms, amenities, bookings and experiences with intuitive navigation, immersive visuals and a seamless user interface.",
+    slideUrl: "/profject",
+    slideTags: ["Scroll Animation", "Fully Responsive", "Hotel Booking", "Elegant"],
+    slideImg: "/work/slider-img-4.png",
+    status: "progress",
   },
 ];
 
