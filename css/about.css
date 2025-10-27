@@ -383,4 +383,75 @@
   .about-sticky-cards .sticky-cards-header {
     width: 90%;
   }
+
+    .about-hero .about-hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* ============================================
+   TABLET RESPONSIVE (768px - 1024px)
+   ============================================ */
+@media screen and (max-width: 1024px) {
+  .about-hero .about-hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .about-hero .about-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transform: scale(1.5);
+  }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE (max-width: 767px)
+   ============================================ */
+@media screen and (max-width: 767px) {
+  .about-hero .about-hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .about-hero .about-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transform: scale(1.5);
+  }
+}
+
+/* ============================================
+   EXTRA SMALL MOBILE (max-width: 480px)
+   ============================================ */
+@media screen and (max-width: 480px) {
+  .about-hero .about-hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .about-hero .about-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transform: scale(1.2);
+  }
 }
