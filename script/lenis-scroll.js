@@ -7,19 +7,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const scrollSettings = isMobile
     ? {
-        duration: 0.8,
+        duration: 1.2,                    // Increased from 0.8 to match desktop
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: "vertical",
         gestureDirection: "vertical",
         smooth: true,
-        smoothTouch: true,
-        touchMultiplier: 1.5,
+        smoothTouch: true,                // Keep touch smoothing enabled
+        touchMultiplier: 2,               // Increased from 1.5 for better response
         infinite: false,
-        lerp: 0.09,
-        wheelMultiplier: 1,
+        lerp: 0.1,                        // Increased from 0.09 to match desktop
+        wheelMultiplier: 1.2,             // Slightly increased for better feel
         orientation: "vertical",
         smoothWheel: true,
         syncTouch: true,
+        touchInertiaMultiplier: 35,       // Added for better touch momentum
       }
     : {
         duration: 1.2,
@@ -56,19 +57,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const newScrollSettings = isMobile
         ? {
-            duration: 1,
+            duration: 1.2,                    // Increased to match desktop
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: "vertical",
             gestureDirection: "vertical",
             smooth: true,
             smoothTouch: true,
-            touchMultiplier: 1.5,
+            touchMultiplier: 2,               // Increased from 1.5
             infinite: false,
-            lerp: 0.05,
-            wheelMultiplier: 1,
+            lerp: 0.1,                        // Increased from 0.05
+            wheelMultiplier: 1.2,             // Increased for consistency
             orientation: "vertical",
             smoothWheel: true,
             syncTouch: true,
+            touchInertiaMultiplier: 35,       // Added for momentum
           }
         : {
             duration: 1.2,

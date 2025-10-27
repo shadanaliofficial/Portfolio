@@ -73,6 +73,12 @@ footer .footer-email-row button {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+footer .footer-email-row button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 footer .footer-email-row button img {
@@ -124,7 +130,7 @@ footer .footer-copy {
 footer a {
   color: var(--base-100);
   font-size: 1.5rem;
-  display: inline-block; /* ✅ Needed for transform to work */
+  display: inline-block;
   transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
@@ -133,13 +139,51 @@ footer a:hover {
   text-shadow: 1px 2px 3px rgba(255, 255, 255, 0.5);
 }
 
+/* ============================================
+   TABLET RESPONSIVE (768px - 1024px)
+   ============================================ */
+@media screen and (max-width: 1024px) {
+  footer {
+    padding: 6rem 0 3rem 0;
+  }
 
+  footer .footer-email-row {
+    width: 85%;
+  }
 
+  footer .footer-email-row input {
+    font-size: 2.5rem;
+  }
 
-@media (max-width: 1000px) {
+  footer .footer-email-row button {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  footer .footer-email-row button img {
+    width: 0.65rem;
+  }
+
+  footer a {
+    font-size: 1.3rem;
+  }
+
+  footer .footer-bottom {
+    padding: 3rem 0 8rem 0;
+  }
+
+  footer .container > div {
+    gap: 1.5rem;
+  }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE (max-width: 767px)
+   ============================================ */
+@media screen and (max-width: 767px) {
   footer {
     height: max-content;
-    padding-top: 8rem;
+    padding: 6rem 0 3rem 0;
   }
 
   footer .container .footer-top .footer-col:nth-child(2) {
@@ -148,10 +192,12 @@ footer a:hover {
 
   footer .footer-email-row {
     width: 100%;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
   }
 
   footer .footer-email-row input {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   footer .footer-email-row button {
@@ -165,12 +211,25 @@ footer a:hover {
 
   footer .container > div {
     flex-direction: column;
-    gap: 4rem;
+    gap: 3rem;
+  }
+
+  footer .footer-top {
+    gap: 2rem;
+  }
+
+  footer .footer-bottom {
+    padding: 3rem 0 6rem 0;
   }
 
   footer .footer-bottom .footer-col:nth-child(2) {
     flex-direction: column;
-    gap: 4rem;
+    gap: 3rem;
+  }
+
+  footer .footer-copyright {
+    flex-direction: column;
+    gap: 3rem;
   }
 
   footer .footer-copyright .footer-col:nth-child(1) {
@@ -181,5 +240,110 @@ footer a:hover {
     width: 100%;
     flex-direction: column-reverse;
     gap: 0.25rem;
+  }
+
+  footer a {
+    font-size: 1.25rem;
+  }
+
+  footer .footer-logo {
+    width: 50px;
+  }
+
+  footer .footer-top .footer-col:nth-child(1) {
+    gap: 1.5rem;
+  }
+}
+
+/* ============================================
+   EXTRA SMALL MOBILE (max-width: 480px)
+   ============================================ */
+@media screen and (max-width: 480px) {
+  footer {
+    padding: 5rem 0 2.5rem 0;
+  }
+
+  footer .footer-email-row {
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+
+  footer .footer-email-row input {
+    font-size: 1.5rem;
+  }
+
+  footer .footer-email-row button {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  footer .footer-email-row button img {
+    width: 0.4rem;
+  }
+
+  footer .container > div {
+    gap: 2.5rem;
+  }
+
+  footer .footer-top {
+    gap: 1.5rem;
+  }
+
+  footer .footer-bottom {
+    padding: 2.5rem 0 5rem 0;
+  }
+
+  footer .footer-bottom .footer-col:nth-child(2) {
+    gap: 2.5rem;
+  }
+
+  footer .footer-copyright {
+    gap: 2.5rem;
+  }
+
+  footer a {
+    font-size: 1.1rem;
+  }
+
+  footer .footer-logo {
+    width: 45px;
+  }
+
+  footer .footer-top .footer-col:nth-child(1) {
+    gap: 1rem;
+  }
+
+  footer .footer-links,
+  footer .footer-copy {
+    gap: 0.5rem;
+  }
+
+  footer p.mono {
+    font-size: 0.85rem;
+  }
+}
+
+/* ============================================
+   LANDSCAPE MOBILE (max-height: 500px)
+   ============================================ */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  footer {
+    padding: 4rem 0 2rem 0;
+  }
+
+  footer .footer-email-row input {
+    font-size: 1.5rem;
+  }
+
+  footer .footer-bottom {
+    padding: 2rem 0 4rem 0;
+  }
+
+  footer .container > div {
+    gap: 2rem;
+  }
+
+  footer a {
+    font-size: 1rem;
   }
 }
