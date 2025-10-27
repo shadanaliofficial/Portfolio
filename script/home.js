@@ -46,7 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const smoothStep = (p) => p * p * (3 - 2 * p);
 
-  if (window.innerWidth > 1000) {
+  // Check if device is mobile/tablet
+  const isMobile = window.innerWidth <= 767;
+  const isTablet = window.innerWidth > 767 && window.innerWidth <= 1024;
+  const isDesktop = window.innerWidth > 1024;
+
+  // HERO CARDS SCROLL ANIMATION - Now works on all devices
+  if (isDesktop) {
     ScrollTrigger.create({
       trigger: ".hero",
       start: "top top",
@@ -116,131 +122,206 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       },
     });
-
+  } else {
+    // Mobile and Tablet hero animation - simplified but still animated
     ScrollTrigger.create({
-      trigger: ".home-services",
+      trigger: ".hero",
       start: "top top",
-      end: `+=${window.innerHeight * 4}px`,
-      pin: ".home-services",
-      pinSpacing: true,
-    });
-
-    ScrollTrigger.create({
-      trigger: ".home-services",
-      start: "top bottom",
-      end: `+=${window.innerHeight * 4}`,
+      end: "75% top",
       scrub: 1,
       onUpdate: (self) => {
         const progress = self.progress;
 
-        const headerProgress = gsap.utils.clamp(0, 1, progress / 0.9);
-        const headerY = gsap.utils.interpolate(
-          "300%",
-          "0%",
-          smoothStep(headerProgress)
+        const heroCardsContainerOpacity = gsap.utils.interpolate(
+          1,
+          0.3,
+          smoothStep(progress)
         );
-        gsap.set(".home-services-header", {
-          y: headerY,
+        gsap.set(".hero-cards", {
+          opacity: heroCardsContainerOpacity,
         });
 
-        ["#card-1", "#card-2", "#card-3"].forEach((cardId, index) => {
-          const delay = index * 0.5;
-          const cardProgress = gsap.utils.clamp(
-            0,
-            1,
-            (progress - delay * 0.1) / (0.9 - delay * 0.1)
-          );
-
-          const innerCard = document.querySelector(
-            `${cardId} .flip-card-inner`
-          );
-
-          let y;
-          if (cardProgress < 0.4) {
-            const normalizedProgress = cardProgress / 0.4;
-            y = gsap.utils.interpolate(
-              "-100%",
-              "50%",
-              smoothStep(normalizedProgress)
-            );
-          } else if (cardProgress < 0.6) {
-            const normalizedProgress = (cardProgress - 0.4) / 0.2;
-            y = gsap.utils.interpolate(
-              "50%",
-              "0%",
-              smoothStep(normalizedProgress)
-            );
-          } else {
-            y = "0%";
-          }
-
-          let scale;
-          if (cardProgress < 0.4) {
-            const normalizedProgress = cardProgress / 0.4;
-            scale = gsap.utils.interpolate(
-              0.25,
-              0.75,
-              smoothStep(normalizedProgress)
-            );
-          } else if (cardProgress < 0.6) {
-            const normalizedProgress = (cardProgress - 0.4) / 0.2;
-            scale = gsap.utils.interpolate(
-              0.75,
-              1,
-              smoothStep(normalizedProgress)
-            );
-          } else {
-            scale = 1;
-          }
-
-          let opacity;
-          if (cardProgress < 0.2) {
-            const normalizedProgress = cardProgress / 0.2;
-            opacity = smoothStep(normalizedProgress);
-          } else {
-            opacity = 1;
-          }
-
-          let x, rotate, rotationY;
-          if (cardProgress < 0.6) {
-            x = index === 0 ? "100%" : index === 1 ? "0%" : "-100%";
-            rotate = index === 0 ? -5 : index === 1 ? 0 : 5;
-            rotationY = 0;
-          } else if (cardProgress < 1) {
-            const normalizedProgress = (cardProgress - 0.6) / 0.4;
-            x = gsap.utils.interpolate(
-              index === 0 ? "100%" : index === 1 ? "0%" : "-100%",
-              "0%",
-              smoothStep(normalizedProgress)
-            );
-            rotate = gsap.utils.interpolate(
-              index === 0 ? -5 : index === 1 ? 0 : 5,
+        ["#hero-card-1", "#hero-card-2", "#hero-card-3"].forEach(
+          (cardId, index) => {
+            const delay = index * 0.9;
+            const cardProgress = gsap.utils.clamp(
               0,
-              smoothStep(normalizedProgress)
+              1,
+              (progress - delay * 0.1) / (1 - delay * 0.1)
             );
-            rotationY = smoothStep(normalizedProgress) * 180;
-          } else {
-            x = "0%";
-            rotate = 0;
-            rotationY = 180;
+
+            const y = gsap.utils.interpolate(
+              "0%",
+              "300%",
+              smoothStep(cardProgress)
+            );
+            const scale = gsap.utils.interpolate(
+              1,
+              0.8,
+              smoothStep(cardProgress)
+            );
+
+            let x = "0%";
+            let rotation = 0;
+            if (index === 0) {
+              x = gsap.utils.interpolate("0%", "60%", smoothStep(cardProgress));
+              rotation = gsap.utils.interpolate(
+                0,
+                -10,
+                smoothStep(cardProgress)
+              );
+            } else if (index === 2) {
+              x = gsap.utils.interpolate(
+                "0%",
+                "-60%",
+                smoothStep(cardProgress)
+              );
+              rotation = gsap.utils.interpolate(
+                0,
+                10,
+                smoothStep(cardProgress)
+              );
+            }
+
+            gsap.set(cardId, {
+              y: y,
+              x: x,
+              rotation: rotation,
+              scale: scale,
+            });
           }
-
-          gsap.set(cardId, {
-            opacity: opacity,
-            y: y,
-            x: x,
-            rotate: rotate,
-            scale: scale,
-          });
-
-          gsap.set(innerCard, {
-            rotationY: rotationY,
-          });
-        });
+        );
       },
     });
   }
 
+  // HOME SERVICES ANIMATION - Now works on all devices with adjusted settings
+  const servicesPinHeight = isMobile ? window.innerHeight * 3 : isTablet ? window.innerHeight * 3.5 : window.innerHeight * 4;
+
+  ScrollTrigger.create({
+    trigger: ".home-services",
+    start: "top top",
+    end: `+=${servicesPinHeight}px`,
+    pin: ".home-services",
+    pinSpacing: true,
+  });
+
+  ScrollTrigger.create({
+    trigger: ".home-services",
+    start: "top bottom",
+    end: `+=${servicesPinHeight}`,
+    scrub: 1,
+    onUpdate: (self) => {
+      const progress = self.progress;
+
+      const headerProgress = gsap.utils.clamp(0, 1, progress / 0.9);
+      const headerY = gsap.utils.interpolate(
+        "300%",
+        "0%",
+        smoothStep(headerProgress)
+      );
+      gsap.set(".home-services-header", {
+        y: headerY,
+      });
+
+      ["#card-1", "#card-2", "#card-3"].forEach((cardId, index) => {
+        const delay = index * 0.5;
+        const cardProgress = gsap.utils.clamp(
+          0,
+          1,
+          (progress - delay * 0.1) / (0.9 - delay * 0.1)
+        );
+
+        const innerCard = document.querySelector(
+          `${cardId} .flip-card-inner`
+        );
+
+        let y;
+        if (cardProgress < 0.4) {
+          const normalizedProgress = cardProgress / 0.4;
+          y = gsap.utils.interpolate(
+            "-100%",
+            "50%",
+            smoothStep(normalizedProgress)
+          );
+        } else if (cardProgress < 0.6) {
+          const normalizedProgress = (cardProgress - 0.4) / 0.2;
+          y = gsap.utils.interpolate(
+            "50%",
+            "0%",
+            smoothStep(normalizedProgress)
+          );
+        } else {
+          y = "0%";
+        }
+
+        let scale;
+        if (cardProgress < 0.4) {
+          const normalizedProgress = cardProgress / 0.4;
+          scale = gsap.utils.interpolate(
+            0.25,
+            0.75,
+            smoothStep(normalizedProgress)
+          );
+        } else if (cardProgress < 0.6) {
+          const normalizedProgress = (cardProgress - 0.4) / 0.2;
+          scale = gsap.utils.interpolate(
+            0.75,
+            1,
+            smoothStep(normalizedProgress)
+          );
+        } else {
+          scale = 1;
+        }
+
+        let opacity;
+        if (cardProgress < 0.2) {
+          const normalizedProgress = cardProgress / 0.2;
+          opacity = smoothStep(normalizedProgress);
+        } else {
+          opacity = 1;
+        }
+
+        let x, rotate, rotationY;
+        if (cardProgress < 0.6) {
+          x = index === 0 ? "100%" : index === 1 ? "0%" : "-100%";
+          rotate = index === 0 ? -5 : index === 1 ? 0 : 5;
+          rotationY = 0;
+        } else if (cardProgress < 1) {
+          const normalizedProgress = (cardProgress - 0.6) / 0.4;
+          x = gsap.utils.interpolate(
+            index === 0 ? "100%" : index === 1 ? "0%" : "-100%",
+            "0%",
+            smoothStep(normalizedProgress)
+          );
+          rotate = gsap.utils.interpolate(
+            index === 0 ? -5 : index === 1 ? 0 : 5,
+            0,
+            smoothStep(normalizedProgress)
+          );
+          rotationY = smoothStep(normalizedProgress) * 180;
+        } else {
+          x = "0%";
+          rotate = 0;
+          rotationY = 180;
+        }
+
+        gsap.set(cardId, {
+          opacity: opacity,
+          y: y,
+          x: x,
+          rotate: rotate,
+          scale: scale,
+        });
+
+        gsap.set(innerCard, {
+          rotationY: rotationY,
+        });
+      });
+    },
+  });
+
+  // SPOTLIGHT SECTION - Adjusted for all devices
   const spotlightImages = document.querySelector(".home-spotlight-images");
   const containerHeight = spotlightImages.offsetHeight;
   const viewportHeight = window.innerHeight;
@@ -260,10 +341,12 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.set(headerSplit.words, { opacity: 0 });
   }
 
+  const spotlightPinHeight = isMobile ? window.innerHeight * 6 : isTablet ? window.innerHeight * 6.5 : window.innerHeight * 7;
+
   ScrollTrigger.create({
     trigger: ".home-spotlight",
     start: "top top",
-    end: `+=${window.innerHeight * 7}px`,
+    end: `+=${spotlightPinHeight}px`,
     pin: true,
     pinSpacing: true,
     scrub: 1,
@@ -341,6 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
+  // OUTRO SECTION - Works on all devices
   const outroHeader = document.querySelector(".outro h3");
   let outroSplit = null;
 
@@ -356,10 +440,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const outroStrips = document.querySelectorAll(".outro-strip");
   const stripSpeeds = [0.3, 0.4, 0.25, 0.35, 0.2, 0.25];
 
+  const outroPinHeight = isMobile ? window.innerHeight * 2.5 : isTablet ? window.innerHeight * 2.75 : window.innerHeight * 3;
+
   ScrollTrigger.create({
     trigger: ".outro",
     start: "top top",
-    end: `+=${window.innerHeight * 3}px`,
+    end: `+=${outroPinHeight}px`,
     pin: true,
     pinSpacing: true,
     scrub: 1,
@@ -392,7 +478,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ScrollTrigger.create({
     trigger: ".outro",
     start: "top bottom",
-    end: `+=${window.innerHeight * 6}px`,
+    end: `+=${window.innerHeight * (isMobile ? 5 : isTablet ? 5.5 : 6)}px`,
     scrub: 1,
     onUpdate: (self) => {
       const progress = self.progress;
@@ -410,7 +496,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // Smooth type → hold → delete → next (loop) using GSAP
+  // Smooth type loop
   function smoothTypeLoop(targetSelector, words, options = {}) {
     const el = document.querySelector(targetSelector);
     if (!el) return;
