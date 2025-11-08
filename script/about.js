@@ -377,10 +377,11 @@ document.addEventListener("DOMContentLoaded", () => {
   ScrollTrigger.create({
     trigger: ".about-skills",
     start: "top top",
-    end: `+=${window.innerHeight * skillsPinDuration}px`,
+    end: `+=${window.innerHeight * skillsPinDuration}`,
     pin: true,
     pinSpacing: true,
-    scrub: 1,
+    anticipatePin: 1,
+    scrub: true,
   });
 
   // Adjust sticky cards duration for mobile

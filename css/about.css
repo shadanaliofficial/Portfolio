@@ -196,15 +196,15 @@
 }
 
 .about-skills .object-container .os-1 {
-  background-color: var(--accent-1);
+  background-color: #d5ffff;
 }
 
 .about-skills .object-container .os-2 {
-  background-color: var(--accent-2);
+  background-color: #f5f5dd;
 }
 
 .about-skills .object-container .os-3 {
-  background-color: var(--accent-3);
+  background-color: #d3d3d3;
 }
 
 .about-skills-copy-wrapper {

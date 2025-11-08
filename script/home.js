@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       trigger: ".hero",
       start: "top top",
       end: "75% top",
-      scrub: 1,
+      scrub: true, // Changed from scrub: 1 to scrub: true for instant response
       onUpdate: (self) => {
         const progress = self.progress;
 
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
       trigger: ".hero",
       start: "top top",
       end: "75% top",
-      scrub: 1,
+      scrub: true, // Changed from scrub: 1
       onUpdate: (self) => {
         const progress = self.progress;
 
@@ -195,22 +195,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // HOME SERVICES ANIMATION - Now works on all devices with adjusted settings
-  const servicesPinHeight = isMobile ? window.innerHeight * 3 : isTablet ? window.innerHeight * 3.5 : window.innerHeight * 4;
+  // HOME SERVICES ANIMATION - Reduced pin height and changed scrub
+  const servicesPinHeight = isMobile ? window.innerHeight * 2.5 : isTablet ? window.innerHeight * 3 : window.innerHeight * 3.5;
 
   ScrollTrigger.create({
     trigger: ".home-services",
     start: "top top",
-    end: `+=${servicesPinHeight}px`,
+    end: `+=${servicesPinHeight}`,
     pin: ".home-services",
     pinSpacing: true,
+    anticipatePin: 1, // Added for smoother pinning
   });
 
   ScrollTrigger.create({
     trigger: ".home-services",
     start: "top bottom",
     end: `+=${servicesPinHeight}`,
-    scrub: 1,
+    scrub: true, // Changed from scrub: 1
     onUpdate: (self) => {
       const progress = self.progress;
 
@@ -321,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // SPOTLIGHT SECTION - Adjusted for all devices
+  // SPOTLIGHT SECTION - Reduced heights and changed scrub
   const spotlightImages = document.querySelector(".home-spotlight-images");
   const containerHeight = spotlightImages.offsetHeight;
   const viewportHeight = window.innerHeight;
@@ -341,15 +342,16 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.set(headerSplit.words, { opacity: 0 });
   }
 
-  const spotlightPinHeight = isMobile ? window.innerHeight * 6 : isTablet ? window.innerHeight * 6.5 : window.innerHeight * 7;
+  const spotlightPinHeight = isMobile ? window.innerHeight * 5 : isTablet ? window.innerHeight * 5.5 : window.innerHeight * 6;
 
   ScrollTrigger.create({
     trigger: ".home-spotlight",
     start: "top top",
-    end: `+=${spotlightPinHeight}px`,
+    end: `+=${spotlightPinHeight}`,
     pin: true,
     pinSpacing: true,
-    scrub: 1,
+    anticipatePin: 1, // Added for smoother pinning
+    scrub: true, // Changed from scrub: 1
     onUpdate: (self) => {
       const progress = self.progress;
 
@@ -424,7 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // OUTRO SECTION - Works on all devices
+  // OUTRO SECTION - Reduced heights and changed scrub
   const outroHeader = document.querySelector(".outro h3");
   let outroSplit = null;
 
@@ -440,15 +442,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const outroStrips = document.querySelectorAll(".outro-strip");
   const stripSpeeds = [0.3, 0.4, 0.25, 0.35, 0.2, 0.25];
 
-  const outroPinHeight = isMobile ? window.innerHeight * 2.5 : isTablet ? window.innerHeight * 2.75 : window.innerHeight * 3;
+  const outroPinHeight = isMobile ? window.innerHeight * 2 : isTablet ? window.innerHeight * 2.25 : window.innerHeight * 2.5;
 
   ScrollTrigger.create({
     trigger: ".outro",
     start: "top top",
-    end: `+=${outroPinHeight}px`,
+    end: `+=${outroPinHeight}`,
     pin: true,
     pinSpacing: true,
-    scrub: 1,
+    anticipatePin: 1, // Added for smoother pinning
+    scrub: true, // Changed from scrub: 1
     onUpdate: (self) => {
       const progress = self.progress;
 
@@ -478,8 +481,8 @@ document.addEventListener("DOMContentLoaded", () => {
   ScrollTrigger.create({
     trigger: ".outro",
     start: "top bottom",
-    end: `+=${window.innerHeight * (isMobile ? 5 : isTablet ? 5.5 : 6)}px`,
-    scrub: 1,
+    end: `+=${window.innerHeight * (isMobile ? 4 : isTablet ? 4.5 : 5)}`,
+    scrub: true, // Changed from scrub: 1
     onUpdate: (self) => {
       const progress = self.progress;
 
