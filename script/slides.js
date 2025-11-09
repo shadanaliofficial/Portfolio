@@ -3,7 +3,7 @@ const slides = [
     slideTitle: "FLAMBOYANT ATELIER",
     slideDescription:
       "A refined, interactive interior design studio website blending minimalism and elegance, highlighting projects, storytelling and seamless user experience with visual sophistication.",
-    slideUrl: "https://mohtasham-mt6i.vercel.app/",
+    slideUrl: "https://mohtasham-9ukz.vercel.app/",
     slideTags: ["Creative Dev", "Scroll UX", "Experimental", "Visual Story"],
     slideImg: "/work/slider-img-1.jpg",
     status: "done",
