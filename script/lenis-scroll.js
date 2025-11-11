@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
-  
+
   // Configure ScrollTrigger for better pin handling
   ScrollTrigger.config({
     anticipatePin: 1,
@@ -15,45 +15,65 @@ document.addEventListener("DOMContentLoaded", () => {
   
   const scrollSettings = isMobile
     ? {
-        duration: 1,
+        duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: "vertical",
+        gestureDirection: "vertical",
         smooth: true,
         smoothTouch: true,
-        touchMultiplier: 1.5,
-        lerp: 0.1, // Increased for snappier mobile feel
-        wheelMultiplier: 1,
+        touchMultiplier: 2,
+        infinite: false,
+        lerp: 0.08, // Slightly reduced for more responsive feel
+        wheelMultiplier: 1.2,
+        orientation: "vertical",
         smoothWheel: true,
-        touchInertiaMultiplier: 25, // Reduced for less "floaty" feel
-        syncTouch: false, // Disable for better mobile performance
+        syncTouch: true,
+        touchInertiaMultiplier: 35,
       }
     : {
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: "vertical",
+        gestureDirection: "vertical",
         smooth: true,
         smoothTouch: false,
-        lerp: 0.08,
+        touchMultiplier: 2,
+        infinite: false,
+        lerp: 0.08, // Slightly reduced for snappier response
         wheelMultiplier: 1,
+        orientation: "vertical",
         smoothWheel: true,
+        syncTouch: true,
       };
 
   let lenis = new Lenis(scrollSettings);
 
-  // Lenis + ScrollTrigger integration
-  lenis.on("scroll", ScrollTrigger.update);
+  // Proper Lenis + ScrollTrigger integration
+  lenis.on("scroll", (e) => {
+    ScrollTrigger.update();
+  });
 
-  // Use ONLY GSAP ticker (single animation loop)
+  // Use requestAnimationFrame for better performance
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+
+  // GSAP ticker integration (backup method)
   gsap.ticker.add((time) => {
     lenis.raf(time * 1000);
   });
 
   gsap.ticker.lagSmoothing(0);
 
-  // Refresh ScrollTrigger after initialization
+  // Refresh ScrollTrigger after Lenis is initialized
   setTimeout(() => {
     ScrollTrigger.refresh();
   }, 100);
 
-  // Refresh on window load
+  // Refresh on window load to ensure everything is calculated correctly
   window.addEventListener("load", () => {
     setTimeout(() => {
       ScrollTrigger.refresh();
@@ -69,34 +89,49 @@ document.addEventListener("DOMContentLoaded", () => {
       
       const newScrollSettings = isMobile
         ? {
-            duration: 1,
+            duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: "vertical",
+            gestureDirection: "vertical",
             smooth: true,
             smoothTouch: true,
-            touchMultiplier: 1.5,
-            lerp: 0.1,
-            wheelMultiplier: 1,
+            touchMultiplier: 2,
+            infinite: false,
+            lerp: 0.08,
+            wheelMultiplier: 1.2,
+            orientation: "vertical",
             smoothWheel: true,
-            touchInertiaMultiplier: 25,
-            syncTouch: false,
+            syncTouch: true,
+            touchInertiaMultiplier: 35,
           }
         : {
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: "vertical",
+            gestureDirection: "vertical",
             smooth: true,
             smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
             lerp: 0.08,
             wheelMultiplier: 1,
+            orientation: "vertical",
             smoothWheel: true,
+            syncTouch: true,
           };
 
       lenis = new Lenis(newScrollSettings);
-      lenis.on("scroll", ScrollTrigger.update);
+      
+      lenis.on("scroll", (e) => {
+        ScrollTrigger.update();
+      });
 
+      // Refresh ScrollTrigger after reinitializing Lenis
       setTimeout(() => {
         ScrollTrigger.refresh();
       }, 100);
     } else {
+      // Just refresh if only size changed, not mobile state
       ScrollTrigger.refresh();
     }
   };
@@ -107,6 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
     resizeTimer = setTimeout(handleResize, 250);
   });
 
-  // Expose lenis globally
+  // Expose lenis globally if needed for other scripts
   window.lenis = lenis;
 });
